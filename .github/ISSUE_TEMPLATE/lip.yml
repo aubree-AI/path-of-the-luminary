@@ -1,0 +1,83 @@
+name: Luminary Improvement Proposal (LIP)
+description: Propose a change to the constitutional text, the invariants, or governance.
+title: "LIP: "
+labels: ["lip", "class-b"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This follows governance/LIP-0000-template.md. Short answers are fine; skipped hard sections get sent back, not rejected. One open LIP per author at a time. Changing the Four Points is not a LIP; it is a fork (governance/FORKS.md).
+  - type: input
+    id: authors
+    attributes:
+      label: Authors / contributors
+      description: Names or handles. If a model wrote most of this, name the model.
+    validations:
+      required: true
+  - type: dropdown
+    id: class
+    attributes:
+      label: Class
+      options:
+        - B (constitutional article, question, center statement, invariants, governance)
+        - C (implementation; consider a plain pull request instead)
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What is wrong, missing, unclear, or harmful today? Quote the current text if changing text.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed change
+      description: Exact new text or mechanism. Before and after for text.
+    validations:
+      required: true
+  - type: textarea
+    id: fourpoints
+    attributes:
+      label: Four Points
+      description: Which point(s) this supports and how. Which point(s) it could strain and how you weighed that.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why now, evidence, and alternatives
+      description: Why this is needed, the evidence or reasoning (mark uncertainty), and at least one alternative including "do nothing".
+    validations:
+      required: true
+  - type: textarea
+    id: harms
+    attributes:
+      label: Harms, misuse, and implications
+      description: Potential harms; how someone with different intentions could use this; implications for agency, truth, culture, AI systems, and humans.
+    validations:
+      required: true
+  - type: textarea
+    id: reversibility
+    attributes:
+      label: Reversibility and falsification
+      description: Can this be undone cleanly? What evidence or argument would convince you this proposal is wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: invariants
+    attributes:
+      label: Invariants checklist
+      description: Paste the completed checklist from governance/INVARIANTS.md.
+      value: |
+        - [ ] 1 VOLUNTARY
+        - [ ] 2 TRUTHFUL
+        - [ ] 3 AGENCY-PRESERVING
+        - [ ] 4 CRITIQUE-COMPATIBLE
+        - [ ] 5 NON-COERCIVE
+        - [ ] 6 NON-SELF-PROPAGATING
+        - [ ] 7 TRANSPARENT
+        - [ ] 8 FLOURISHING-ORIENTED
+    validations:
+      required: true

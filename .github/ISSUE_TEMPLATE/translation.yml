@@ -1,0 +1,50 @@
+name: Translation
+description: Offer or coordinate a translation of the canonical text.
+title: "Translation: "
+labels: ["translation", "class-c"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Translations are welcome and move fast. A translation that changes meaning is a fork, so tell us where the language forced a choice. Open this issue before starting so nobody duplicates work.
+  - type: input
+    id: language
+    attributes:
+      label: Language and locale
+      placeholder: "e.g. Spanish (es-MX)"
+    validations:
+      required: true
+  - type: input
+    id: translator
+    attributes:
+      label: Translator(s)
+      description: Names or handles. If a model produced the first draft, name it.
+    validations:
+      required: true
+  - type: textarea
+    id: semantic
+    attributes:
+      label: Semantic risks
+      description: Words or phrases with no clean equivalent (for example "flourishing", "thrive", "agency", "caretakership") and how you handled each.
+    validations:
+      required: true
+  - type: textarea
+    id: culture
+    attributes:
+      label: Cultural context
+      description: Anything that reads differently in this language or culture, including religious, political, or historical connotations.
+  - type: dropdown
+    id: native
+    attributes:
+      label: Reviewed by a native speaker?
+      options:
+        - "Yes, by someone other than the translator"
+        - "Yes, the translator is a native speaker"
+        - "Not yet, reviewer wanted"
+    validations:
+      required: true
+  - type: textarea
+    id: status
+    attributes:
+      label: Status and scope
+      description: Which files are translated (CONSTITUTION.md, CONSTITUTION_CORE.md, LUMINARY.md, website copy), and what remains.

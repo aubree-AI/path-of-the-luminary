@@ -1,0 +1,19 @@
+# Code owners for the Path of the Luminary repository.
+# Stewards and maintainers by GitHub handle. Adding one is a Class B change (GOVERNANCE.md).
+#
+# STEWARD handles: the accountable humans listed in governance/STEWARDSHIP.md.
+# MAINTAINER handles: people with write access for Layer 2 (website, specs, scripts).
+
+# Canonical text (Class A/B): steward review required
+/CONSTITUTION_CORE.md        @aubree-AI
+/CONSTITUTION.md             @aubree-AI
+/LUMINARY.md                 @aubree-AI
+/governance/                 @aubree-AI
+/spec/                       @aubree-AI
+
+# Evaluation material: steward or maintainer
+/evaluation/                 @aubree-AI
+
+# Repository plumbing
+/.github/                    @aubree-AI
+/CONTRIBUTING.md             @aubree-AI

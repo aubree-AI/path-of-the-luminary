@@ -1,0 +1,35 @@
+name: Technical issue
+description: A bug, broken link, accessibility problem, or engineering improvement for the website, specs, or scripts.
+title: "Tech: "
+labels: ["technical", "class-c"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you expected, what you saw. Include the URL and, for the website, the browser and device.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Website
+        - Machine-readable files (spec, LUMINARY.md, checksums)
+        - Scripts or build
+        - Accessibility
+        - Performance
+        - Security (if sensitive, email lumen@luminarylife.ai instead of filing publicly)
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: Proposed fix
+      description: Optional. Pull requests welcome.

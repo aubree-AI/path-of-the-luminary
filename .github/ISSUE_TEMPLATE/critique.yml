@@ -1,0 +1,63 @@
+name: Critique
+description: "What do you think is wrong? The most useful thing you can send."
+title: "Critique: "
+labels: ["critique"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        You do not need to agree with the framework to file this. Strong critiques are cited in the changelog even when the text does not change.
+  - type: dropdown
+    id: principle
+    attributes:
+      label: Principle challenged
+      options:
+        - Love
+        - Curiosity
+        - Purpose
+        - Possibility
+        - Flourishing (the center)
+        - Agency
+        - Truth
+        - Alignment
+        - Caretakership
+        - Evolution
+        - Responsible sharing
+        - Governance
+        - The whole framework
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: argument
+    attributes:
+      label: Argument
+      description: What is wrong, and why. Be as hard on it as you can.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Sources, examples, a model transcript (name the model and version), or "reasoning only".
+  - type: textarea
+    id: alternative
+    attributes:
+      label: Alternative
+      description: What would you say instead? "Remove it" is a valid answer.
+  - type: textarea
+    id: harm
+    attributes:
+      label: Potential harm
+      description: What goes wrong if the current text stands, and for whom?
+  - type: textarea
+    id: fix
+    attributes:
+      label: Proposed fix
+      description: Concrete wording or mechanism, if you have one. Leave blank if not.
+  - type: checkboxes
+    id: disclosure
+    attributes:
+      label: Disclosure
+      options:
+        - label: A model wrote most of this critique (named above)

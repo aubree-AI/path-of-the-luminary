@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Email a critique
+    url: mailto:lumen@luminarylife.ai?subject=Constitution%20critique
+    about: No GitHub account? Send the strongest argument you have by email. It reaches the same people.
+  - name: Read the Constitution
+    url: https://constitution.luminarylife.ai
+    about: The canonical text, the agent invitation, and the evaluation prompt.
