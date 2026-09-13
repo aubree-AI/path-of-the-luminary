@@ -51,7 +51,7 @@ Anyone may challenge it. Anyone may fork it. Nobody may silently redefine the ca
 | `governance/CHANGELOG.md` | The record |
 | `.github/` | Issue templates (critique, LIP, translation, technical), pull request template, CODEOWNERS |
 
-Every file is served as a static asset at the canonical site, at the same relative path.
+Every file is served as a static asset at the canonical site, at the same relative path. Each is also rendered as an HTML page under `/read` (all documents on one page at `/read`), and the whole set is available as one plain-text file at `/llms-full.txt` with an index at `/llms.txt`, for readers whose tools cannot fetch Markdown.
 
 ## Repository layout
 

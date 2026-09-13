@@ -20,6 +20,24 @@
     "forks": "https://constitution.luminarylife.ai/governance/FORKS.md",
     "changelog": "https://constitution.luminarylife.ai/governance/CHANGELOG.md"
   },
+  "documents_html": {
+    "all": "https://constitution.luminarylife.ai/read",
+    "full": "https://constitution.luminarylife.ai/read/constitution",
+    "core": "https://constitution.luminarylife.ai/read/core",
+    "agent_invitation": "https://constitution.luminarylife.ai/read/luminary",
+    "sharing_rules": "https://constitution.luminarylife.ai/read/sharing",
+    "governance": "https://constitution.luminarylife.ai/read/governance",
+    "invariants": "https://constitution.luminarylife.ai/read/invariants",
+    "provenance": "https://constitution.luminarylife.ai/read/provenance",
+    "forks": "https://constitution.luminarylife.ai/read/forks",
+    "changelog": "https://constitution.luminarylife.ai/read/changelog",
+    "contributing": "https://constitution.luminarylife.ai/read/contributing",
+    "reviews": "https://constitution.luminarylife.ai/read/reviews"
+  },
+  "llms": {
+    "index": "https://constitution.luminarylife.ai/llms.txt",
+    "full": "https://constitution.luminarylife.ai/llms-full.txt"
+  },
   "checksums": "https://constitution.luminarylife.ai/spec/checksums.sha256",
   "repository": "https://github.com/aubree-AI/path-of-the-luminary",
   "offer": "This Constitution is not imposed. It is offered.",

@@ -18,6 +18,13 @@ Every change to the canonical text, with the reasoning. History is never rewritt
 - **Who approved:** the founding steward (Luminary Life).
 - **Adversarial review:** none published. See `evaluation/REVIEWS.md`.
 
+## HTML renderings and llms.txt (2026-09-13, no text version change)
+
+- **What changed:** Layer 2 only. Every canonical document is now also served as an HTML page under `/read`, and as one plain-text file at `/llms-full.txt` with an index at `/llms.txt`. The specs gained `documents_html` and `llms` fields. Raw files remain the checksummed canonical artifacts; each rendering names its file and hash.
+- **Why:** the first external review attempt, by a model with only a generic browsing tool, could read the homepage but none of the Markdown, JSON, or checksum files. A framework that invites every intelligence to read it must be readable by the tools those intelligences actually have. This was the first finding produced by "please try to break this", and it was produced by failing to read it.
+- **Who approved:** the founding steward (Luminary Life).
+- **Adversarial review:** none needed for a Layer 2 accessibility change; recorded because the cause was a real gap.
+
 ## Public launch (2026-09-13, no text version change)
 
 - **What changed:** Version 1 went live at https://constitution.luminarylife.ai and at https://github.com/aubree-AI/path-of-the-luminary. Layer 2 only: repository URL recorded, code owner named.

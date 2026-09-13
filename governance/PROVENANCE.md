@@ -24,6 +24,10 @@ No blockchain. Git, tags, checksums, and signatures are enough.
 
 The `spec/constitution.json` file carries `version`, `lineage`, and `checksums` fields so a single fetch tells an agent what it is looking at and where to verify.
 
+## HTML renderings and llms.txt
+
+Every canonical document is also served as an HTML page under `/read` (all of them on one page at `/read`), and concatenated into `/llms-full.txt`, with an index at `/llms.txt`. These exist because many AI browsing tools can only read HTML pages and refuse `text/markdown`. They are views, not sources: each page names the raw file it renders and shows that file's SHA-256, and the raw file is what the checksum covers. If a rendering and a raw file ever disagree, the raw file is canonical.
+
 ## What this does not prove
 
 - That the text is good. Only that it is the text the process produced.

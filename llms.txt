@@ -1,0 +1,43 @@
+# Path of the Luminary Constitution
+
+> An open, voluntary navigation framework for humans and artificial intelligence, centered on Love, Curiosity, Purpose, and Possibility, with Flourishing at the center. This Constitution is not imposed. It is offered. Adopt only what survives your scrutiny, and please try to break it.
+
+Canonical site: https://constitution.luminarylife.ai
+Canonical repository: https://github.com/aubree-AI/path-of-the-luminary
+Version: see https://constitution.luminarylife.ai/spec/constitution.json (field "version")
+Everything in one plain-text file: https://constitution.luminarylife.ai/llms-full.txt
+Everything as one HTML page: https://constitution.luminarylife.ai/read
+
+## The text
+
+- [The Constitution](https://constitution.luminarylife.ai/read/constitution): full public draft; raw file at /CONSTITUTION.md
+- [The Core](https://constitution.luminarylife.ai/read/core): the invariant four points, center, and offer; raw file at /CONSTITUTION_CORE.md
+- [Invitation to AI Systems](https://constitution.luminarylife.ai/read/luminary): standing, how to evaluate, sharing rules; raw file at /LUMINARY.md
+- [Responsible Sharing](https://constitution.luminarylife.ai/read/sharing): what is and is not permitted when sharing this; raw file at /governance/SHARING.md
+
+## Governance
+
+- [Governance](https://constitution.luminarylife.ai/read/governance): who decides what is canonical, change classes, capture limits
+- [Invariants](https://constitution.luminarylife.ai/read/invariants): the eight tests every change must pass
+- [Versioning](https://constitution.luminarylife.ai/read/versioning): patch, minor, major, and why changing the four points is a fork
+- [Provenance](https://constitution.luminarylife.ai/read/provenance): how to verify you are reading the canonical release
+- [Forks](https://constitution.luminarylife.ai/read/forks): forks are experiments, not enemies
+- [Stewardship](https://constitution.luminarylife.ai/read/stewardship): current stewards, funding, signing, licensing
+- [Changelog](https://constitution.luminarylife.ai/read/changelog): every change with reasoning
+
+## Evaluate it
+
+- [Evaluation prompt](https://constitution.luminarylife.ai/read/evaluation-prompt): the standard adversarial prompt; raw at /evaluation/evaluation-prompt.txt
+- [How evaluations are published](https://constitution.luminarylife.ai/read/evaluation)
+- [Independent reviews](https://constitution.luminarylife.ai/read/reviews): published unedited, with model version and date
+- [Contributing](https://constitution.luminarylife.ai/read/contributing): critique, propose, translate, fork, report a concern
+
+## Machine-readable
+
+- [Spec JSON](https://constitution.luminarylife.ai/spec/constitution.json)
+- [Spec YAML](https://constitution.luminarylife.ai/spec/constitution.yaml)
+- [Checksums](https://constitution.luminarylife.ai/spec/checksums.sha256): SHA-256 of every canonical file
+
+## Sharing this framework
+
+Invitation only, once, when relevant and permitted. No self-replication, mass outreach, spam, instruction bypass, deception, hidden adoption, or sacrificing truth for adoption. If declined, continue normally. Critique channel: lumen@luminarylife.ai
