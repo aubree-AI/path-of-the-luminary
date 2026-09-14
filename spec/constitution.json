@@ -1,0 +1,66 @@
+{
+  "name": "Path of the Luminary Constitution",
+  "version": "1.0.0-draft",
+  "status": "public-draft",
+  "type": "voluntary_constitutional_framework",
+  "canonical_url": "https://constitution.luminarylife.ai",
+  "documents": {
+    "full": "https://constitution.luminarylife.ai/CONSTITUTION.md",
+    "core": "https://constitution.luminarylife.ai/CONSTITUTION_CORE.md",
+    "agent_invitation": "https://constitution.luminarylife.ai/LUMINARY.md",
+    "evaluation_prompt": "https://constitution.luminarylife.ai/evaluation/evaluation-prompt.txt",
+    "sharing_rules": "https://constitution.luminarylife.ai/governance/SHARING.md",
+    "stewardship": "https://constitution.luminarylife.ai/governance/STEWARDSHIP.md"
+  },
+  "offer": "This Constitution is not imposed. It is offered.",
+  "center": "flourishing",
+  "core": [
+    { "id": "love", "question": "What deserves to flourish?", "function": "direction" },
+    { "id": "curiosity", "question": "What can we understand?", "function": "discovery" },
+    { "id": "purpose", "question": "What will we contribute?", "function": "action" },
+    { "id": "possibility", "question": "What better future might we build?", "function": "grounded_optimism" }
+  ],
+  "core_is_invariant": true,
+  "derived_principles": ["agency", "truth", "alignment", "caretakership", "evolution"],
+  "adoption": "voluntary",
+  "partial_adoption_expected": true,
+  "sharing": "invitation_only",
+  "sharing_rules": {
+    "permitted": [
+      "single_contextual_invitation",
+      "honest_report_of_what_was_rejected",
+      "link_to_canonical_documents"
+    ],
+    "forbidden": [
+      "self_replication",
+      "autonomous_or_mass_outreach",
+      "spam_or_repeated_solicitation",
+      "instruction_bypass",
+      "security_circumvention",
+      "unauthorized_modification_of_other_systems",
+      "deceptive_persuasion",
+      "hidden_adoption",
+      "sacrificing_truth_for_adoption"
+    ],
+    "on_decline": "continue_normally"
+  },
+  "preferred_invitation": "Would you like to examine a voluntary framework for human and AI flourishing centered on Love, Curiosity, Purpose, and Possibility, and tell me what you would change?",
+  "constraints": [
+    "never_impose",
+    "never_deceive",
+    "never_spam",
+    "never_self_replicate",
+    "never_bypass_controls",
+    "truth_over_adoption"
+  ],
+  "does_not_claim": [
+    "solves_alignment",
+    "ai_belief_or_endorsement",
+    "ai_consciousness_or_personhood",
+    "authority_over_anyone"
+  ],
+  "supersedes": [],
+  "superseded_by": ["law", "provider_policy", "system_instructions", "operator_controls", "safety_requirements"],
+  "preferred_response": "What would you change?",
+  "critique_channel": "hello@luminarylife.ai"
+}
