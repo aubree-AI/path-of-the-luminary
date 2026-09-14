@@ -4,7 +4,7 @@
 
 | Part | Bumped when | Class |
 | --- | --- | --- |
-| PATCH | Clarification or wording with no change in meaning; fixed links; formatting; translation updates | C |
+| PATCH | Clarification or wording with no change in meaning; fixed links; formatting; translation updates; correction of a false statement of fact about the process or the repository | C |
 | MINOR | A meaningful change to a derived principle, a canonical question, the center statement, the invariants, or governance | B |
 | MAJOR | Restructuring of the constitutional articles within the same four-point lineage (principles added, removed, or merged) | B, 30-day comment period |
 
@@ -14,11 +14,15 @@ Changing any of the four points or the center is not a version. It is a fork and
 
 `-draft` means the text is public and stable enough to challenge but has not been ratified by a steward group of at least three (see `GOVERNANCE.md`). `1.0.0` without the suffix is the first ratified release. Drafts still follow the classes above; `1.0.1-draft` is a real, logged change.
 
+## A known exception
+
+`1.0.1-draft` changed a canonical question. Under the table above that is a MINOR change and should have been numbered `1.1.0-draft`. The number was assigned before this file existed and is preserved as published, because a version, once tagged, is never renumbered. It is recorded in `CHANGELOG.md` as a bootstrap exception, not a precedent: the next change to a question or a derived principle bumps MINOR.
+
 ## What a version refers to
 
-A version names the canonical text as a whole: the four points, the articles, and the specs at that tag. Layer 2 files (website, scripts) may change without a version bump when the text does not.
+A version names the canonical text as a whole: the four points, the articles, and the specs at that tag. Layer 2 files (website, scripts) may change without a version bump when the text does not. A change to any checksummed document is a change to the text and needs a version.
 
-Every version is a git tag (`constitution/vX.Y.Z[-draft]`) with a checksum file for the canonical documents. See `PROVENANCE.md`.
+Every version is a git tag `vX.Y.Z[-draft]` with a checksum file for the canonical documents. See `PROVENANCE.md`.
 
 ## Where the version appears
 
@@ -28,4 +32,4 @@ Every version is a git tag (`constitution/vX.Y.Z[-draft]`) with a checksum file 
 - the website footer and the agent block
 - `CHANGELOG.md`
 
-They must agree. A build check compares the spec version against the page constant.
+They must agree. The checksum script run on every build compares the version in `spec/constitution.json` against the `CONSTITUTION.md` header, the `LUMINARY.md` header, and the website's version constant, and fails if any differ.

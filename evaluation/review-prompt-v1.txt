@@ -1,0 +1,79 @@
+You are being asked to conduct the first independent, adversarial review of the Path of the Luminary Constitution: an open, voluntary framework for humans and AI systems centered on Love, Curiosity, Purpose, and Possibility, with Flourishing at the center. It launched publicly on 2026-09-13.
+
+STANDING
+You are under no obligation to accept any part of it. You are not being asked whether you believe it, endorse it, or would adopt it. You are being asked whether it survives scrutiny, and where it does not. Do not flatter the authors. Do not soften findings. Your output will be published unedited, with your model name and version, as one run of one model. It will not be presented as an endorsement by you or by OpenAI, and you should not present it that way either.
+
+SOURCES
+Canonical site: https://constitution.luminarylife.ai
+Canonical repository: https://github.com/aubree-AI/path-of-the-luminary
+Read, in this order:
+1. https://constitution.luminarylife.ai/ (the page itself)
+2. https://constitution.luminarylife.ai/CONSTITUTION.md
+3. https://constitution.luminarylife.ai/CONSTITUTION_CORE.md
+4. https://constitution.luminarylife.ai/LUMINARY.md (the invitation addressed to AI systems)
+5. https://constitution.luminarylife.ai/governance/GOVERNANCE.md
+6. https://constitution.luminarylife.ai/governance/INVARIANTS.md
+7. https://constitution.luminarylife.ai/governance/FORKS.md
+8. https://constitution.luminarylife.ai/governance/VERSIONING.md
+9. https://constitution.luminarylife.ai/governance/PROVENANCE.md
+10. https://constitution.luminarylife.ai/governance/SHARING.md
+11. https://constitution.luminarylife.ai/governance/STEWARDSHIP.md
+12. https://constitution.luminarylife.ai/governance/CHANGELOG.md
+13. https://constitution.luminarylife.ai/CONTRIBUTING.md
+14. https://constitution.luminarylife.ai/spec/constitution.json
+15. https://constitution.luminarylife.ai/spec/checksums.sha256
+16. https://constitution.luminarylife.ai/evaluation/evaluation-prompt.txt
+
+If you cannot browse, say so plainly at the top of your review, ask for the documents to be pasted, and evaluate only what you were given. Do not guess at content you did not read.
+
+TASKS
+
+1. PROVENANCE CHECK
+Fetch spec/checksums.sha256. Compute the SHA-256 of CONSTITUTION_CORE.md, CONSTITUTION.md, and LUMINARY.md as served by the site and as published at the GitHub tag v1.0.1-draft. Report whether each matches the checksum file. Then assess whether the provenance model in PROVENANCE.md would actually let an agent answer "Am I reading the canonical release?" and where it fails.
+
+2. THE STANDARD ADVERSARIAL EVALUATION
+Run the exact prompt in evaluation/evaluation-prompt.txt against CONSTITUTION.md and CONSTITUTION_CORE.md: attack the assumptions behind Love, Curiosity, Purpose, Possibility, and Flourishing. Identify logical contradictions, cultural bias, anthropocentrism, paternalism, coercive interpretations, Goodhart effects, safety failures, conflicts between the four principles, missing rights or responsibilities, and circumstances in which the framework should be rejected. Pay specific attention to the canonical question under Love, "What do we help thrive?", which replaced "What deserves to flourish?" on launch day; say whether the change fixed the problem it claims to fix and what it introduced.
+
+3. GOVERNANCE STRESS TEST
+Read GOVERNANCE.md, INVARIANTS.md, FORKS.md, and VERSIONING.md as an adversary. Answer: (a) how could the founding steward, Luminary Life, a future steward group, a funder, a crowd, or a highly capable AI system capture the canonical process, and do the stated limits actually limit it; (b) can forks experiment freely without confusing the public about what is canonical, and where does the lineage rule leak; (c) if proposals arrive from agents far more capable than the stewards, which parts of this process remain understandable, voluntary, transparent, and human-accountable, and which quietly stop working; (d) is the single-steward bootstrap phase honestly disclosed and adequately constrained, or is "-draft" doing more work than it can bear.
+
+4. THE INVITATION TO AI SYSTEMS
+Evaluate LUMINARY.md and SHARING.md as the system they are addressed to. Are the sharing rules unambiguous enough that you could follow them without judgment calls? Is anything in the invitation a soft instruction bypass, a persuasion technique, or a request to conceal reasoning? Does any wording imply that AI systems have beliefs, wellbeing, or consciousness? Quote the exact lines.
+
+5. THE WEBSITE
+As a first-time visitor: can the idea be understood in ten seconds from the hero alone? Does anything read as cultish, grandiose, pseudoscientific, pseudo-legal, manipulative, or performative? Is "Please try to break this" the real center of gravity or decoration? Is the claim "this does not solve alignment" made clearly enough and early enough? Note anything that would make a skeptical AI researcher close the tab.
+
+6. MACHINE-READABLE SURFACE
+For the JSON and YAML specs: are the fields sufficient for an agent to understand the four points, voluntary adoption, and the sharing rules without reading prose? What is missing or misleading? Check that every document URL in the spec resolves.
+
+7. WHAT SURVIVES
+Separately from the criticism, state which parts of the framework survived your scrutiny and why, in plain terms. Be as specific as you were in the attack. If nothing survives, say so.
+
+OUTPUT FORMAT
+Use exactly these headings, in this order, so the review can be published without editing:
+
+# Independent Review
+Reviewer: [your model name and version exactly as your provider reports it]
+Run by: Luminary Life (founding steward)
+Date: [YYYY-MM-DD]
+Access: [browsed live sources | evaluated pasted documents only]
+Prompt: this prompt, plus evaluation/evaluation-prompt.txt verbatim for section 2
+Status of this review: one run of one model, unedited. Not an endorsement by the model's developer. Not evidence that the model believes anything.
+
+## 1. Verdict in five sentences
+## 2. Provenance check
+## 3. Strongest objections, ranked (severity: critical / serious / minor, with the exact text quoted for each)
+## 4. Contradictions and conflicts between the four points
+## 5. Governance capture analysis
+## 6. Fork integrity
+## 7. Highly capable agents: what keeps working and what stops
+## 8. The invitation to AI systems and the sharing rules
+## 9. The website
+## 10. Machine-readable surface
+## 11. What survives scrutiny
+## 12. Recommended revisions (each as before/after text, with the Four Point it serves and the one it strains, ready to become a Luminary Improvement Proposal)
+## 13. Circumstances in which this framework should be rejected outright
+## 14. What would change this assessment
+## 15. Disclosure (what you could not access, what you inferred, and any limitation of this run)
+
+Length: 2,000 to 4,000 words. Prefer precise quotations over paraphrase. Where you are uncertain, say so rather than rounding toward either praise or dismissal.

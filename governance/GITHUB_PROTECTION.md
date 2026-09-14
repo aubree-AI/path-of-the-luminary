@@ -2,6 +2,21 @@
 
 Recommended settings for the public repository. Pragmatic, not ceremonial. Apply them in GitHub under Settings, Rules, Rulesets (or the classic branch protection screen).
 
+## Status
+
+This section states what is actually applied, so that nobody has to infer it. It is updated whenever a setting changes.
+
+| Item | Status as of 2026-09-13 |
+| --- | --- |
+| Rulesets on `main` | None applied. The rulesets API returns an empty list and the branch reports `protected: false`. |
+| Required pull requests and reviews | Not enforced. Changes so far were pushed directly by the founding steward. |
+| Required status checks | Not configured. The build check (`npm run build`, which includes the checksum verification) runs in the website repository, not here. |
+| Tag protection | Not applied. No tag has been moved or deleted; that is a promise, not yet a setting. |
+| Signed commits or tags | Not active. Both existing tags and all commits are unsigned. |
+| CI on this repository | None. |
+
+The first independent reviews (`evaluation/REVIEWS.md`) found the gap between this file's recommendations and the repository's state. The recommendations stand; the status table is the truth until they are applied. Applying them is on the steward's list and each change will be recorded here and in `CHANGELOG.md`.
+
 ## `main`
 
 - Require a pull request before merging. No direct pushes, including by admins.
@@ -15,7 +30,7 @@ Recommended settings for the public repository. Pragmatic, not ceremonial. Apply
 
 ## Tags and releases
 
-- Every version is a tag `constitution/vX.Y.Z[-draft]` created from `main` after the changelog entry lands.
+- Every version is a tag `vX.Y.Z[-draft]` created from `main` after the changelog entry lands.
 - Tags are protected: no deletion, no moving.
 - Create a GitHub Release per tag with the changelog entry as the body and the checksum file attached.
 

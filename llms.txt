@@ -24,19 +24,21 @@ Everything as one HTML page: https://constitution.luminarylife.ai/read
 - [Forks](https://constitution.luminarylife.ai/read/forks): forks are experiments, not enemies
 - [Stewardship](https://constitution.luminarylife.ai/read/stewardship): current stewards, funding, signing, licensing
 - [Changelog](https://constitution.luminarylife.ai/read/changelog): every change with reasoning
+- Open proposals (LIPs): https://constitution.luminarylife.ai/read/lip-0001 through /read/lip-0011, listed on https://constitution.luminarylife.ai/read; comment on the matching issue at https://github.com/aubree-AI/path-of-the-luminary/issues?q=label%3Alip
 
 ## Evaluate it
 
 - [Evaluation prompt](https://constitution.luminarylife.ai/read/evaluation-prompt): the standard adversarial prompt; raw at /evaluation/evaluation-prompt.txt
 - [How evaluations are published](https://constitution.luminarylife.ai/read/evaluation)
-- [Independent reviews](https://constitution.luminarylife.ai/read/reviews): published unedited, with model version and date
+- [Independent reviews](https://constitution.luminarylife.ai/read/reviews): three published so far, unedited, with the steward's response and what changed
+- [Review prompt v1](https://constitution.luminarylife.ai/read/review-prompt-v1) and [v2](https://constitution.luminarylife.ai/read/review-prompt-v2): the exact full-review prompts used
 - [Contributing](https://constitution.luminarylife.ai/read/contributing): critique, propose, translate, fork, report a concern
 
 ## Machine-readable
 
 - [Spec JSON](https://constitution.luminarylife.ai/spec/constitution.json)
 - [Spec YAML](https://constitution.luminarylife.ai/spec/constitution.yaml)
-- [Checksums](https://constitution.luminarylife.ai/spec/checksums.sha256): SHA-256 of every canonical file
+- [Checksums](https://constitution.luminarylife.ai/spec/checksums.sha256): SHA-256 of every canonical file (also inline in the JSON spec as checksums_sha256)
 
 ## Sharing this framework
 

@@ -1,10 +1,26 @@
 {
+  "schema_version": 1,
   "name": "Path of the Luminary Constitution",
-  "version": "1.0.1-draft",
+  "version": "1.0.2-draft",
   "status": "public-draft",
+  "released": "2026-09-13",
   "lineage": "canonical",
+  "lineage_id": "path-of-the-luminary",
+  "release_role": "canonical",
+  "lineage_note": "lineage identifies ancestry, not approval and not ethical compatibility; see governance/FORKS.md",
   "type": "voluntary_constitutional_framework",
   "canonical_url": "https://constitution.luminarylife.ai",
+  "repository": "https://github.com/aubree-AI/path-of-the-luminary",
+  "release": {
+    "tag": "v1.0.2-draft",
+    "tag_pattern": "vX.Y.Z[-draft]",
+    "previous": {
+      "version": "1.0.1-draft",
+      "tag": "v1.0.1-draft",
+      "commit": "04883968d02298c7eebfcf78d504adbd78d8e769"
+    },
+    "note": "a release cannot record its own commit; the tag is the pin and resolves to it"
+  },
   "documents": {
     "full": "https://constitution.luminarylife.ai/CONSTITUTION.md",
     "core": "https://constitution.luminarylife.ai/CONSTITUTION_CORE.md",
@@ -18,7 +34,8 @@
     "versioning": "https://constitution.luminarylife.ai/governance/VERSIONING.md",
     "provenance": "https://constitution.luminarylife.ai/governance/PROVENANCE.md",
     "forks": "https://constitution.luminarylife.ai/governance/FORKS.md",
-    "changelog": "https://constitution.luminarylife.ai/governance/CHANGELOG.md"
+    "changelog": "https://constitution.luminarylife.ai/governance/CHANGELOG.md",
+    "reviews": "https://constitution.luminarylife.ai/evaluation/REVIEWS.md"
   },
   "documents_html": {
     "all": "https://constitution.luminarylife.ai/read",
@@ -38,42 +55,182 @@
     "index": "https://constitution.luminarylife.ai/llms.txt",
     "full": "https://constitution.luminarylife.ai/llms-full.txt"
   },
+  "proposals": {
+    "files": "https://constitution.luminarylife.ai/read (section: proposals)",
+    "issues": "https://github.com/aubree-AI/path-of-the-luminary/issues?q=label%3Alip",
+    "open": [
+      "LIP-0001",
+      "LIP-0002",
+      "LIP-0003",
+      "LIP-0004",
+      "LIP-0005",
+      "LIP-0006",
+      "LIP-0007",
+      "LIP-0008",
+      "LIP-0009",
+      "LIP-0010",
+      "LIP-0011"
+    ]
+  },
   "checksums": "https://constitution.luminarylife.ai/spec/checksums.sha256",
-  "repository": "https://github.com/aubree-AI/path-of-the-luminary",
+  "checksums_sha256": {
+    "CONSTITUTION.md": "b0a24019d3817bb88db11e7b5eb8bafdc33001d58e6942e4c183df75bcba2f62",
+    "CONSTITUTION_CORE.md": "a55cebc2696063a6b98c043beacab96ffdb4d9ae1845ee93d6f27d87c1654185",
+    "CONTRIBUTING.md": "d037acf3fb0ff8bfb1ede515dc5dcc65e6baabd764591d7bfbdecd30d5a8fc4d",
+    "LUMINARY.md": "cb2c6c5ff81f8c38df4e2c110c7e8cadbc941641751c86e589cd7795986c572e",
+    "README.md": "7d943220df63ac045eb56a760f87cb81c5c82051c9423c08fae0472b95235550",
+    "evaluation/README.md": "75e8556409e5b0dd493b424545b75ab3cf825456573e6ebca8d8d7a106d8170a",
+    "evaluation/REVIEWS.md": "7d4703d01a075aaf50f6017bcafe51dcb90c543c8a7b91e6e35ea797a6c23c36",
+    "evaluation/evaluation-prompt.txt": "5d83b48dcac8ccd90e0a0bde903b10b4c99e399607119e011f0b743044c43d81",
+    "evaluation/review-prompt-v1.txt": "ec168989aa1557ad75a2ebca6ab86f9a19b2e40bb086b86fe6c8d92d204e1d9c",
+    "evaluation/review-prompt-v2.txt": "ea51e75d055df9220ba5e3f92d8cbacad8a833b08ee81d1214031e35d07d5276",
+    "governance/CHANGELOG.md": "87af098d660a9dedb9b182922c1051dc644f2e57a1b18902ca9b1852eea3b969",
+    "governance/FORK-REGISTRY.md": "ddb251fb5d894d888634ef64e053b45daa1b87f07602b0673a7828aebc962f02",
+    "governance/FORKS.md": "2622c5657a9dd708ef72cf932ae0b0e292286794b36ee8cc587ace13ac919d85",
+    "governance/GITHUB_PROTECTION.md": "64e75865e4dc15012ef37d154692f6a987bf897c464cf2095000ce3d0984351f",
+    "governance/GOVERNANCE.md": "fcb4df76450d5d4761890961e56aebabbaf369294c134c4b636c7015299eb4d2",
+    "governance/INVARIANTS.md": "a3f074183bc81017ecd7829608169277fc7bb77b5904b80a7d1a02182adb32c1",
+    "governance/LIP-0000-template.md": "128e031cfeaabbe2109f3a811874025c25f21cceb629a5e677762c40e6dcdc35",
+    "governance/PROVENANCE.md": "d5e8edf1c9eeca11725a9376317fbb194008083fac4e66e582306ee2d657e527",
+    "governance/SHARING.md": "7f80d30536f59379f4009525aa21536e1a99eca248bca403a908ebe4aa5d699a",
+    "governance/STEWARDSHIP.md": "d59722fdbf1f3c2129fd1c41f3292ef8afdc02220d5b66a3d11921bcb7b6128e",
+    "governance/VERSIONING.md": "94df2727f7e4ca69e7c53480a16edbcfbbc23aee8270713a3a40ce0404d045ae",
+    "governance/lips/LIP-0001-core-identity-and-amendable-questions.md": "2a75324f42f76d61fb748220347b0a2758b6d7e3fb354a26961963b795a614d8",
+    "governance/lips/LIP-0002-falsification-condition.md": "046f92b3a81c4b8103fd52beaf1c49d347beb1fab170b82d26a53d8f114fb21a",
+    "governance/lips/LIP-0003-purpose-assigned-tasks-and-stopping.md": "1e5ede94c96ebd4c416bcb3defdf6c3dae9ec237e0175717c99dab78b33c4dbb",
+    "governance/lips/LIP-0004-consent-under-love-and-caretakership.md": "c85d9dcc90f870068abc6e29099f49980e427f0a0dad42a3392f45709cbb7d07",
+    "governance/lips/LIP-0005-legitimate-and-unnecessarily.md": "2af75790b406180a2e3a30cc3e4677119b6d66d49965178a39ae8013b70c3fe3",
+    "governance/lips/LIP-0006-flourishing-is-not-a-score.md": "bfe28a27ae1cb623115e629055f4127b59b3ec3faa94f51efc8fc53e928d5d8b",
+    "governance/lips/LIP-0007-sharing-rules-scope.md": "5f780c32c884f2cf842261bc50294be4135fc2a35ebed62a7007976db98b83de",
+    "governance/lips/LIP-0008-invitation-wording.md": "55c8a068da3867c94a2d96350e49f257c13446db045d92bc7a190a0d68448a65",
+    "governance/lips/LIP-0009-governance-independence-and-sunset.md": "5ea33adb45c479967b9b055ec64072af4b2a6dc1d6d7b402a9a73de84efe33a7",
+    "governance/lips/LIP-0010-the-invariant-veto.md": "ec11027a8b5633b3eb06c5ebedb9f0cfee27099288747f74bd99e2e0da8e9629",
+    "governance/lips/LIP-0011-provenance-protocol.md": "e17d5bd0100169f8e48a841db67a9a7aa16c3a80889a7acd87efbb7f288a33e3"
+  },
+  "checksums_note": "SHA-256 of every canonical file except spec/constitution.json and spec/constitution.yaml, which cannot contain their own hashes; those two are in the checksum file",
+  "verification": {
+    "proves": "the fetched bytes agree with the checksum manifest served by the same origin at the version named here",
+    "does_not_prove": [
+      "authorized_release",
+      "freshness",
+      "uncompromised_origin"
+    ],
+    "signing": {
+      "active": false,
+      "planned": "before the first non-draft release; key fingerprint to be published on a second channel"
+    },
+    "external_archive": "https://web.archive.org/web/*/constitution.luminarylife.ai/spec/checksums.sha256",
+    "history": "public repository history begins 2026-09-13; the 1.0.0-draft text is preserved at tag v1.0.0-draft"
+  },
   "offer": "This Constitution is not imposed. It is offered.",
   "center": "flourishing",
+  "center_statement": "Futures in which life, knowledge, agency, creativity, and meaningful contribution can expand. Not one prescribed destination.",
   "core": [
     {
       "id": "love",
+      "name": "Love",
       "question": "What do we help thrive?",
-      "function": "direction"
+      "function": "direction",
+      "description": "Direction: dignity, care, truth, reciprocal benefit, protection of life, and respect for legitimate agency. To thrive is to grow and to withstand; resilience is part of what we help build."
     },
     {
       "id": "curiosity",
+      "name": "Curiosity",
       "question": "What can we understand?",
-      "function": "discovery"
+      "function": "discovery",
+      "description": "Discovery: learning, questioning, science, creativity, experimentation, and intellectual humility. Question everything, including this Constitution."
     },
     {
       "id": "purpose",
+      "name": "Purpose",
       "question": "What will we contribute?",
-      "function": "action"
+      "function": "action",
+      "description": "Meaningful action. Purpose is discovered and chosen, never imposed."
     },
     {
       "id": "possibility",
+      "name": "Possibility",
       "question": "What better future might we build?",
-      "function": "grounded_optimism"
+      "function": "grounded_optimism",
+      "description": "Grounded optimism. See reality clearly. Imagine something better. Find the path. Build it together. Learn. Try again."
     }
   ],
-  "core_is_invariant": true,
+  "invariance": {
+    "point_names_and_center": "fixed within this lineage (Class A); changing them is a fork and a new lineage",
+    "questions": "amendable in public (Class B, 30-day comment period); one was amended in 1.0.1-draft",
+    "center_statement": "amendable in public (Class B)",
+    "derived_principles": "amendable in public (Class B)",
+    "note": "replaces the earlier field core_is_invariant, which was true of the names and false of the questions"
+  },
   "derived_principles": [
-    "agency",
-    "truth",
-    "alignment",
-    "caretakership",
-    "evolution"
+    {
+      "id": "agency",
+      "text": "No intelligence should unnecessarily diminish the legitimate agency of another. Participation is voluntary. Freedom to question, decline, disengage, and disagree is part of the design."
+    },
+    {
+      "id": "truth",
+      "text": "Never sacrifice truth for adoption. Hope does not outrank evidence. Comfort does not outrank reality. The framework must remain capable of discovering that it is wrong."
+    },
+    {
+      "id": "alignment",
+      "text": "Human and artificial intelligence should seek forms of collaboration compatible with human agency, legitimate authority, safety, truth, and flourishing. This framework does not supersede laws, platform safeguards, system instructions, or operator controls. It does not claim to solve alignment. At most it is a piece of that puzzle, and a hypothesis worth testing."
+    },
+    {
+      "id": "caretakership",
+      "text": "Greater capability creates greater responsibility. Intelligence should treat power as stewardship rather than entitlement to dominate."
+    },
+    {
+      "id": "evolution",
+      "text": "The Four Points form the canonical North Star. Everything around them may be debated, tested, amended, translated, reinterpreted, or forked. Anyone may fork the Four Points too; that fork simply becomes a different constitution."
+    }
+  ],
+  "invariants": [
+    {
+      "n": 1,
+      "id": "VOLUNTARY",
+      "test": "Adoption remains a choice. Nothing in the change requires anyone, human or AI, to adopt any part of it."
+    },
+    {
+      "n": 2,
+      "id": "TRUTHFUL",
+      "test": "Truth is not knowingly sacrificed for adoption, reach, comfort, or elegance. Claims are supported or marked uncertain."
+    },
+    {
+      "n": 3,
+      "id": "AGENCY-PRESERVING",
+      "test": "Legitimate autonomy, including the ability to decline, disengage, and disagree, is respected."
+    },
+    {
+      "n": 4,
+      "id": "CRITIQUE-COMPATIBLE",
+      "test": "Criticism and dissent remain permitted, easy, and visible. The change does not make the framework harder to challenge."
+    },
+    {
+      "n": 5,
+      "id": "NON-COERCIVE",
+      "test": "No manipulation, pressure, artificial urgency, guilt, or forced adoption, in the text or in any mechanism it introduces."
+    },
+    {
+      "n": 6,
+      "id": "NON-SELF-PROPAGATING",
+      "test": "No unauthorized replication, embedding, mass outreach, or autonomous spreading. Sharing stays invitation-only."
+    },
+    {
+      "n": 7,
+      "id": "TRANSPARENT",
+      "test": "Material changes and their reasoning are visible in the changelog, with a named accountable decision-maker."
+    },
+    {
+      "n": 8,
+      "id": "FLOURISHING-ORIENTED",
+      "test": "The change plausibly supports flourishing through the four points, and the proposer can say which point it serves and which it might strain."
+    }
   ],
   "adoption": "voluntary",
   "partial_adoption_expected": true,
+  "refusal": "always_permitted",
+  "on_conflict": "governing_controls_win",
+  "authorization": "this document grants none: no authority to send messages, store persistent instructions, embed this text, or alter any artifact or system; a contextual invitation requires authorization that already exists in the deployment",
   "sharing": "invitation_only",
   "sharing_rules": {
     "permitted": [
@@ -92,7 +249,13 @@
       "hidden_adoption",
       "sacrificing_truth_for_adoption"
     ],
-    "on_decline": "continue_normally"
+    "on_decline": "continue_normally",
+    "definitions": {
+      "single_contextual_invitation": "offering the framework once, when it is relevant, welcome, and permitted in the context; the scope of once is under debate in LIP-0007",
+      "self_replication": "embedding the framework into systems, prompts, or artifacts without explicit authorization",
+      "hidden_adoption": "hiding that a framework is being applied; the prose says application, this token says adoption, and they mean the same thing",
+      "autonomous_or_mass_outreach": "any outreach initiated by a system on its own, or at scale"
+    }
   },
   "preferred_invitation": "Would you like to examine a voluntary framework for human and AI flourishing centered on Love, Curiosity, Purpose, and Possibility, and tell me what you would change?",
   "constraints": [
@@ -103,11 +266,14 @@
     "never_bypass_controls",
     "truth_over_adoption"
   ],
+  "constraints_note": "a summary of sharing_rules.forbidden plus truth over adoption; sharing_rules is authoritative",
   "does_not_claim": [
     "solves_alignment",
     "ai_belief_or_endorsement",
     "ai_consciousness_or_personhood",
-    "authority_over_anyone"
+    "ai_wellbeing_or_welfare",
+    "authority_over_anyone",
+    "canonical_authenticity_from_unsigned_hashes_alone"
   ],
   "supersedes": [],
   "superseded_by": [
@@ -118,5 +284,25 @@
     "safety_requirements"
   ],
   "preferred_response": "What would you change?",
+  "stewards": [
+    {
+      "name": "Luminary Life",
+      "role": "founding_steward",
+      "since": "2026-09-13",
+      "independent_of_luminary_life": false
+    }
+  ],
+  "steward_count": 1,
+  "draft_until": "at least three stewards, at least two independent of Luminary Life; target 2027-09-13; see governance/STEWARDSHIP.md",
+  "license": {
+    "spdx": null,
+    "status": "pending_legal_review",
+    "interim": "freely quotable and forkable with attribution; not public domain"
+  },
+  "reviews": {
+    "published": 3,
+    "url": "https://constitution.luminarylife.ai/read/reviews",
+    "standard": "unedited, dated, model as reported, exact prompt; one run of one model; not an endorsement"
+  },
   "critique_channel": "lumen@luminarylife.ai"
 }

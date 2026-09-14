@@ -6,7 +6,7 @@ An open, voluntary navigation framework for humans and artificial intelligence.
 
 Canonical site: https://constitution.luminarylife.ai
 Canonical repository: https://github.com/aubree-AI/path-of-the-luminary
-Working mirror while DNS propagates: https://luminarylife.ai/constitution
+Mirror (same bytes): https://luminarylife.ai/constitution
 
 ## The core
 
@@ -37,7 +37,8 @@ Anyone may challenge it. Anyone may fork it. Nobody may silently redefine the ca
 | `spec/checksums.sha256` | SHA-256 of every canonical document at this version |
 | `evaluation/evaluation-prompt.txt` | The standard adversarial evaluation prompt |
 | `evaluation/README.md` | How to run an evaluation and how results get published |
-| `evaluation/REVIEWS.md` | Published independent reviews (none yet, by design) |
+| `evaluation/REVIEWS.md` | Published independent reviews, unedited, with the steward's response |
+| `evaluation/review-prompt-v1.txt`, `evaluation/review-prompt-v2.txt` | The exact full-review prompts used for the published reviews |
 | `governance/GOVERNANCE.md` | Who decides what is canonical: layers, classes, stewards, capture limits |
 | `governance/INVARIANTS.md` | The eight tests every change must pass, with the checklist |
 | `governance/LIP-0000-template.md` | Luminary Improvement Proposal template |
@@ -49,6 +50,7 @@ Anyone may challenge it. Anyone may fork it. Nobody may silently redefine the ca
 | `governance/STEWARDSHIP.md` | Who stewards the text, funding, signing, licensing |
 | `governance/GITHUB_PROTECTION.md` | Recommended repository settings |
 | `governance/CHANGELOG.md` | The record |
+| `governance/lips/` | Luminary Improvement Proposals, open and decided |
 | `.github/` | Issue templates (critique, LIP, translation, technical), pull request template, CODEOWNERS |
 
 Every file is served as a static asset at the canonical site, at the same relative path. Each is also rendered as an HTML page under `/read` (all documents on one page at `/read`), and the whole set is available as one plain-text file at `/llms-full.txt` with an index at `/llms.txt`, for readers whose tools cannot fetch Markdown.
@@ -62,13 +64,14 @@ CONSTITUTION_CORE.md
 LUMINARY.md
 CONTRIBUTING.md
 spec/            constitution.json, constitution.yaml, checksums.sha256
-evaluation/      evaluation-prompt.txt, README.md, REVIEWS.md
+evaluation/      evaluation-prompt.txt, review-prompt-v1.txt, review-prompt-v2.txt, README.md, REVIEWS.md
 governance/      GOVERNANCE.md, INVARIANTS.md, LIP-0000-template.md, VERSIONING.md, PROVENANCE.md,
-                 FORKS.md, FORK-REGISTRY.md, SHARING.md, STEWARDSHIP.md, GITHUB_PROTECTION.md, CHANGELOG.md
+                 FORKS.md, FORK-REGISTRY.md, SHARING.md, STEWARDSHIP.md, GITHUB_PROTECTION.md, CHANGELOG.md,
+                 lips/LIP-NNNN-*.md
 .github/         CODEOWNERS, ISSUE_TEMPLATE/, PULL_REQUEST_TEMPLATE.md
 ```
 
-This folder is the source of truth for the public repository; it is published from the Luminary Life website repository and exported unchanged.
+This folder is the source of truth for the public repository; it is published from the Luminary Life website repository and exported unchanged. The public repository's history begins at launch (2026-09-13); the earlier working history is in the website repository, and the `1.0.0-draft` text is preserved at the public tag `v1.0.0-draft`.
 
 ## What this is not
 
@@ -81,4 +84,4 @@ This folder is the source of truth for the public repository; it is published fr
 
 Please try to break this. Send the strongest argument you can build to lumen@luminarylife.ai with the subject "Constitution critique", or run the evaluation prompt against any model and share the unedited result.
 
-Status: public draft 1.0.1. Stewarded initially by Luminary Life. Licensing and long-term governance are open questions documented in `governance/STEWARDSHIP.md`.
+Status: public draft 1.0.2. Stewarded initially by Luminary Life. Licensing and long-term governance are open questions documented in `governance/STEWARDSHIP.md`.

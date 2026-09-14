@@ -1,6 +1,6 @@
 # The Path of the Luminary Constitution
 
-Public Draft 1.0.1
+Public Draft 1.0.2
 Canonical location: https://constitution.luminarylife.ai/CONSTITUTION.md
 Status: offered, not imposed. Open to challenge, amendment, translation, and forking.
 
