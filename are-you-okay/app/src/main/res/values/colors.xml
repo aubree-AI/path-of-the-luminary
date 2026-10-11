@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- White on this green is about 7.9:1 contrast (WCAG AAA). -->
+    <color name="ok_green">#1B5E20</color>
+    <color name="ok_green_pressed">#103A14</color>
+    <color name="text">#111111</color>
+    <color name="background">#FFFFFF</color>
+</resources>

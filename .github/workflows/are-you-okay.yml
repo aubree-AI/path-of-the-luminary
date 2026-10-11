@@ -1,0 +1,48 @@
+name: Are You Okay? Android build
+
+on:
+  push:
+    paths:
+      - "are-you-okay/**"
+      - ".github/workflows/are-you-okay.yml"
+  pull_request:
+    paths:
+      - "are-you-okay/**"
+      - ".github/workflows/are-you-okay.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: are-you-okay
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build debug APK and run lint
+        run: ./gradlew assembleDebug lintDebug
+
+      - name: Build signed release APK (only if signing secrets are set)
+        env:
+          KEYSTORE_B64: ${{ secrets.AYO_KEYSTORE_BASE64 }}
+          AYO_KEYSTORE_PASSWORD: ${{ secrets.AYO_KEYSTORE_PASSWORD }}
+          AYO_KEY_ALIAS: ${{ secrets.AYO_KEY_ALIAS }}
+          AYO_KEY_PASSWORD: ${{ secrets.AYO_KEY_PASSWORD }}
+        if: env.KEYSTORE_B64 != ''
+        run: |
+          echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          AYO_KEYSTORE_PATH="$RUNNER_TEMP/release.jks" ./gradlew assembleRelease
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: are-you-okay-apk
+          path: |
+            are-you-okay/app/build/outputs/apk/debug/app-debug.apk
+            are-you-okay/app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: warn
