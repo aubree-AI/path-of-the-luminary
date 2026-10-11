@@ -2,7 +2,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -57,7 +56,6 @@
                         android:id="@+id/name"
                         style="@style/Field"
                         android:autofillHints="name"
-                        android:hint="@string/hint_name"
                         android:inputType="textPersonName|textCapWords" />
                 </LinearLayout>
 
@@ -94,7 +92,6 @@
                         android:id="@+id/links"
                         style="@style/Field"
                         android:gravity="top"
-                        android:hint="@string/hint_links"
                         android:importantForAutofill="no"
                         android:inputType="textUri|textMultiLine"
                         android:minLines="2"

@@ -31,7 +31,10 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            // R8 strips unused code and resources; there is no reflection to keep.
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
             if (keystorePath != null) signingConfig = signingConfigs.getByName("release")
         }
     }
@@ -39,6 +42,11 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+    lint {
+        // Lint fails the build on errors; known, intentional warnings are listed in lint.xml.
+        lintConfig = file("lint.xml")
+        warningsAsErrors = false
     }
     kotlinOptions {
         jvmTarget = "17"

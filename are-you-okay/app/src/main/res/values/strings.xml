@@ -26,11 +26,9 @@
     <string name="back">Back</string>
     <string name="label_name">Your name</string>
     <string name="help_name">Shown in the messages your family receives.</string>
-    <string name="hint_name">For example, Jean</string>
     <string name="label_time">Daily reminder</string>
     <string name="change">Change</string>
     <string name="label_links">Who gets told</string>
-    <string name="hint_links">https://hc-ping.com/…</string>
     <string name="test">Send a test message</string>
     <string name="test_sending">Sending…</string>
     <string name="test_no_links">Add a check-in link first.</string>

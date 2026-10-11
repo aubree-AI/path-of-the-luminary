@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- accessibilityHeading / showWhenLocked are simply ignored on older Android; that's intended. -->
+    <issue id="UnusedAttribute" severity="ignore" />
+    <!-- Adaptive icons need the -v26 folder name for aapt even though minSdk is 26. -->
+    <issue id="ObsoleteSdkInt" severity="ignore" />
+    <!-- Material's own settings icon path; fine at 24dp. -->
+    <issue id="VectorPath" severity="ignore" />
+    <!-- The status card's icon is tinted per state, which a compound drawable makes awkward. -->
+    <issue id="UseCompoundDrawables" severity="ignore" />
+</lint>
