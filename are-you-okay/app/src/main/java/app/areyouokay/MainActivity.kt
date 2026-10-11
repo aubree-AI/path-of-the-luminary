@@ -86,6 +86,9 @@ class MainActivity : Activity() {
         val delivery = when {
             prefs.links.isEmpty() -> MainScreen.Delivery.NOT_SET_UP
             checkedIn && prefs.brokenLinks.isNotEmpty() -> MainScreen.Delivery.BROKEN_LINK
+            // Give the first attempt a minute before saying "no internet".
+            prefs.pendingLinks.isNotEmpty() && System.currentTimeMillis() - prefs.lastCheckInMillis < 60_000 ->
+                MainScreen.Delivery.SENDING
             prefs.pendingLinks.isNotEmpty() -> MainScreen.Delivery.WAITING
             checkedIn && prefs.lastDeliveredMillis >= prefs.lastCheckInMillis -> MainScreen.Delivery.SENT
             else -> MainScreen.Delivery.NONE
@@ -94,6 +97,8 @@ class MainActivity : Activity() {
             set(Calendar.HOUR_OF_DAY, prefs.reminderHour)
             set(Calendar.MINUTE, prefs.reminderMinute)
         }.timeInMillis
+        val helpAt = prefs.helpAtMillis.takeIf { it != 0L && Schedule.isSameDay(it, System.currentTimeMillis(), ZoneId.systemDefault()) }
+        val helpDelivered = prefs.helpPendingLinks.isEmpty()
         screen.bind(
             MainScreen.State(
                 name = prefs.name,
@@ -103,14 +108,18 @@ class MainActivity : Activity() {
                 reminderAt = reminderAt,
                 delivery = delivery,
                 remindersOff = !getSystemService(NotificationManager::class.java).areNotificationsEnabled(),
-                helpAt = prefs.helpAtMillis.takeIf { it != 0L && Schedule.isSameDay(it, System.currentTimeMillis(), ZoneId.systemDefault()) },
-                helpDelivered = prefs.helpPendingLinks.isEmpty(),
+                helpAt = helpAt,
+                helpDelivered = helpDelivered,
             ),
         )
-        // If the app is left open overnight, switch back to "I'm OK" at midnight.
+        // While something is still being sent, look again in a few seconds so the screen
+        // changes to "Your family has been told" on its own. Otherwise wake up at midnight,
+        // so an app left open overnight switches back to "I'm OK".
         handler.removeCallbacks(refresher)
+        val sending = prefs.pendingLinks.isNotEmpty() || (helpAt != null && !helpDelivered)
         val now = ZonedDateTime.now()
-        handler.postDelayed(refresher, Duration.between(now, Schedule.nextMidnight(now)).toMillis() + 1_000)
+        val delay = if (sending) 3_000L else Duration.between(now, Schedule.nextMidnight(now)).toMillis() + 1_000
+        handler.postDelayed(refresher, delay)
     }
 
     override fun onPause() {

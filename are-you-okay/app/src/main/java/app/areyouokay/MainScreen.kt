@@ -14,7 +14,7 @@ import java.util.Date
  */
 class MainScreen(private val root: View) {
 
-    enum class Delivery { NOT_SET_UP, WAITING, SENT, BROKEN_LINK, NONE }
+    enum class Delivery { NOT_SET_UP, SENDING, WAITING, SENT, BROKEN_LINK, NONE }
 
     data class State(
         val name: String,
@@ -109,6 +109,8 @@ class MainScreen(private val root: View) {
                 status(Tone.WARNING, R.drawable.ic_warning, ctx.getString(R.string.delivery_broken), tappable = true)
             s.remindersOff && !done ->
                 status(Tone.WARNING, R.drawable.ic_warning, ctx.getString(R.string.reminders_off), tappable = true)
+            s.delivery == Delivery.SENDING ->
+                status(Tone.NEUTRAL, R.drawable.ic_clock, ctx.getString(R.string.delivery_sending))
             s.delivery == Delivery.WAITING ->
                 status(Tone.WARNING, R.drawable.ic_clock, ctx.getString(R.string.delivery_waiting))
             s.delivery == Delivery.SENT ->

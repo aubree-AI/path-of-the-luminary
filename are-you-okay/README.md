@@ -7,6 +7,13 @@ alerts the family. No accounts, no servers to run, no SMS fees, no tracking.
 The idea came from a 74-year-old mom who wanted her daughter to know she is
 okay every day.
 
+<p>
+  <img src="app/src/test/snapshots/images/app.areyouokay_ScreensTest_main_notYet.png" width="200" alt="Main screen: a big green I'm OK button">
+  <img src="app/src/test/snapshots/images/app.areyouokay_ScreensTest_main_done.png" width="200" alt="After checking in: Thank you, your family has been told">
+  <img src="app/src/test/snapshots/images/app.areyouokay_ScreensTest_main_dark.png" width="200" alt="Dark mode">
+  <img src="app/src/test/snapshots/images/app.areyouokay_ScreensTest_settings.png" width="200" alt="Settings">
+</p>
+
 ## How it works
 
 ```
@@ -62,13 +69,19 @@ anyone who knows them, so make it random.
 1. Download `app-debug.apk` (from this repo's **Actions** tab, or a Release) to the phone.
 2. Open it. Android will ask to allow installs from the browser or files app. Allow it, then tap **Install**.
    (Play Protect may warn that the app is unknown. Choose **Install anyway**.)
-3. Open **Are You Okay?**, allow notifications, and tap **Settings**:
+3. Open **Are You Okay?** and allow notifications.
+4. **Text Mom the link(s).** On her phone she presses and holds the link in Messages, taps
+   **Share**, and picks **Are You Okay?**. The app shows where check-ins will go and asks
+   "Add this link?" (Or copy the link and tap **Paste link** in Settings.)
+5. In **Settings**:
    - **Your name**: shown in the messages.
-   - **Daily reminder time**: a couple of hours before your alert deadline (e.g. 9:00 for an 11:00 deadline).
-   - **Check-in links**: paste the Healthchecks ping URL, and the ntfy link if used, one per line.
-   - Tap **Send a test message**. You should see "2 of 2 links worked".
-   - Tap **Don't let Android put this app to sleep** and allow it. This matters on Samsung, Xiaomi, and other phones that kill background apps.
-     See https://dontkillmyapp.com for your model.
+   - **Daily reminder**: a couple of hours before your alert deadline (e.g. 9:00 for an 11:00 deadline).
+   - Check that the links are described as "Alerts your family if you miss a check-in" (Healthchecks)
+     and "Tells your family each time you check in" (ntfy), then tap **Send a test message**.
+   - Under **Make reminders reliable**, tap **Fix** on anything with a warning, especially
+     battery saving on Samsung, Xiaomi and similar phones. See https://dontkillmyapp.com for your model.
+6. Optional: long-press the home screen > **Widgets** > **Are You Okay?** to add a big
+   "I'm OK" button to her home screen.
 
 ### Going away?
 
@@ -78,16 +91,24 @@ check-in, so there's nothing to remember to turn back on.
 
 ## What the app does (and doesn't)
 
-- One screen with one big high-contrast button (white on dark green, about 8:1 contrast).
-- A daily reminder at a set time. It repeats every 15 minutes, 3 more times, until she taps.
-  She can tap **I'M OK** right on the notification without opening the app.
-- Checking in earlier in the day skips the reminder.
-- Each check-in is POSTed as plain text to every link. If there's no internet, it waits
-  (Android JobScheduler) and sends when the phone reconnects.
-- Reminders survive restarts, app updates, and time zone changes.
-- Permissions: notifications, exact alarm, start on boot, internet, battery-optimization request.
-  **No** SMS, location, contacts, or Google Play Services.
-- No analytics. Settings stay on the phone.
+- **One big button.** White on dark green (about 8:1 contrast), a heart icon, and a calm
+  "Thank you!" state afterwards. Works with large text, dark mode, landscape, tablets and TalkBack.
+- **Several ways to check in:** the app, the **I'm OK** button on the reminder notification,
+  a **home-screen widget**, or long-press the app icon > **I'm OK**.
+- **Daily reminder** at a set time. It repeats every 15 minutes, 3 more times, until she taps.
+  Checking in earlier in the day skips it. Reminders survive restarts, updates and time-zone changes.
+- **"I need help"** (smaller, below the main button, always asks first): sends an urgent alert.
+  Healthchecks.io gets its `/fail` signal and alerts the family immediately; ntfy gets
+  top priority. It does **not** call emergency services, and says so.
+- **Status in plain words:** "Your family has been told", "Telling your family…",
+  "No internet right now, will send when back online", "One of your family's links didn't work",
+  "Reminders are turned off. Tap here to fix."
+- **Offline-safe:** messages wait (Android JobScheduler) and send when the phone reconnects.
+  A link that answers "not found" isn't retried forever; it's flagged instead.
+- **Going away?** One-tap pause for 1 day, 3 days or 1 week.
+- **Permissions:** notifications, exact alarm, start on boot, internet, battery-optimization request.
+  **No** SMS, location, contacts, accounts or Google Play Services. No analytics. Settings stay on the phone.
+- **Tiny:** no third-party libraries in the app; the release APK is about 76 KB.
 
 ## Why not…
 
@@ -109,7 +130,17 @@ cd are-you-okay
 # APK: app/build/outputs/apk/debug/app-debug.apk
 ```
 
-Each push that changes `are-you-okay/` builds the APK on GitHub Actions
+Tests (no emulator needed):
+
+```bash
+./gradlew testDebugUnitTest      # unit tests + screenshot rendering
+./gradlew recordPaparazziDebug   # regenerate the screenshots in app/src/test/snapshots
+```
+
+The screenshot tests ([Paparazzi](https://github.com/cashapp/paparazzi)) render every
+main-screen state, settings, the widget, dark mode, 200% text, landscape and tablet.
+
+Each push that changes `are-you-okay/` runs the tests and builds the APK on GitHub Actions
 (`.github/workflows/are-you-okay.yml`). Download it from the run's **Artifacts**.
 
 **About signing:** debug APKs built on different machines are signed with
@@ -123,11 +154,13 @@ secrets: `AYO_KEYSTORE_BASE64`, `AYO_KEYSTORE_PASSWORD`, `AYO_KEY_ALIAS`,
 
 | File | What it does |
 | --- | --- |
-| `MainActivity.kt` | The big button and today's status |
-| `SettingsActivity.kt` | Name, time, links, pause, test, reliability buttons |
-| `Reminders.kt` | Daily alarm, 15-minute repeats, the notification |
-| `CheckIn.kt` | Records a check-in and POSTs it to the links |
-| `SendJobService.kt` | Delivers check-ins, waiting for network if needed |
+| `MainActivity.kt`, `MainScreen.kt` | The big button, help button and today's status (screen drawn from a plain `State`) |
+| `SettingsActivity.kt`, `SettingsScreen.kt` | Name, time, links (share/paste), pause, test, reliability checklist |
+| `Reminders.kt` | Daily alarm, 15-minute repeats, midnight reset, notifications |
+| `CheckIn.kt` | Records a check-in or help request and POSTs it to the links |
+| `SendJobService.kt` | Delivers messages, waiting for network if needed |
+| `OkWidget.kt` | Home-screen widget |
+| `Links.kt`, `Schedule.kt` | Link recognition and date math (pure Kotlin, unit-tested) |
 | `ReminderReceiver.kt`, `BootReceiver.kt` | Alarm, notification-button, and reboot hooks |
 | `Prefs.kt` | All saved state |
 
@@ -136,6 +169,7 @@ secrets: `AYO_KEYSTORE_BASE64`, `AYO_KEYSTORE_PASSWORD`, `AYO_KEY_ALIAS`,
 - **iPhone / PWA version**: a one-page web app with the same button POSTing to the same links.
 - Choose the number and spacing of reminders in Settings.
 - Show a short history of recent check-ins.
+- A check-in history page for the family (Healthchecks.io already keeps one per check).
 - In-app pause that also pauses the Healthchecks check (needs a Healthchecks API key).
 - Translations (all text is in `res/values/strings.xml`).
 - Publish on F-Droid.
