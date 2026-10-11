@@ -5,10 +5,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
-import java.util.Locale
 
 /**
  * Draws the main screen from a plain [State]. Kept separate from the Activity so the
@@ -41,8 +39,7 @@ class MainScreen(private val root: View) {
 
     fun bind(s: State) {
         val time = DateFormat.getTimeInstance(DateFormat.SHORT)
-        val day = SimpleDateFormat(android.text.format.DateFormat.getBestDateTimePattern(Locale.getDefault(), "EEEEMMMMd"), Locale.getDefault())
-        date.text = day.format(Date(s.now))
+        date.text = SettingsScreen.shortDate(s.now)
 
         val hour = Calendar.getInstance().apply { timeInMillis = s.now }.get(Calendar.HOUR_OF_DAY)
         val partOfDay = ctx.getString(
@@ -53,6 +50,10 @@ class MainScreen(private val root: View) {
             },
         )
         greeting.text = if (s.name.isEmpty()) partOfDay else ctx.getString(R.string.greeting_name, partOfDay, s.name)
+
+        // With very large text there isn't room for the icon on smaller phones; the words matter more.
+        val config = ctx.resources.configuration
+        okIcon.visibility = if (config.fontScale >= 1.5f && config.screenHeightDp < 800) View.GONE else View.VISIBLE
 
         val done = s.checkedInAt != null
         if (done) {
@@ -86,7 +87,7 @@ class MainScreen(private val root: View) {
             s.delivery == Delivery.SENT ->
                 status(Tone.OK, R.drawable.ic_check_circle, ctx.getString(R.string.delivery_sent))
             s.pausedUntil != null ->
-                status(Tone.WARNING, R.drawable.ic_pause, ctx.getString(R.string.status_paused, DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(s.pausedUntil))))
+                status(Tone.WARNING, R.drawable.ic_pause, ctx.getString(R.string.status_paused, SettingsScreen.shortDate(s.pausedUntil)))
             !done ->
                 status(Tone.NEUTRAL, R.drawable.ic_clock, ctx.getString(R.string.status_reminder_at, time.format(Date(s.reminderAt))))
             else -> statusCard.visibility = View.GONE

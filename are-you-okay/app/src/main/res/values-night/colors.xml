@@ -9,6 +9,8 @@
     <!-- White on this green is about 5.1:1 (AA for the large button text). -->
     <color name="ok_green">#2E7D32</color>
     <color name="ok_green_pressed">#1B5E20</color>
+    <!-- Green used for text and outlines on the page background. -->
+    <color name="ok_green_text">#8FD694</color>
     <color name="on_ok_green">#FFFFFF</color>
     <color name="done_container">#1F3A22</color>
     <color name="on_done_container">#C8EBCB</color>

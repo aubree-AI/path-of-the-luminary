@@ -66,22 +66,25 @@
 
             <ImageView
                 android:id="@+id/ok_icon"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_heart"
                 android:tint="@color/on_ok_green" />
 
+            <!-- Shrinks to fit on small phones with very large text instead of being cut off. -->
             <TextView
                 android:id="@+id/ok_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:autoSizeMaxTextSize="56sp"
+                android:autoSizeMinTextSize="24sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:gravity="center"
                 android:importantForAccessibility="no"
                 android:text="@string/im_ok"
                 android:textColor="@color/on_ok_green"
-                android:textSize="52sp"
                 android:textStyle="bold" />
 
             <TextView

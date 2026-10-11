@@ -30,7 +30,6 @@
     <string name="hint_name">For example, Jean</string>
     <string name="label_time">Daily reminder</string>
     <string name="change">Change</string>
-    <string name="time_help">If you haven\'t tapped I\'m OK, the reminder repeats every %1$d minutes, up to %2$d more times.</string>
     <string name="label_links">Who gets told</string>
     <string name="help_links">Paste the check-in link your family gave you. Add more links on new lines. See the README for how to make one.</string>
     <string name="hint_links">https://hc-ping.com/…</string>
@@ -38,7 +37,6 @@
     <string name="test_sending">Sending…</string>
     <string name="test_no_links">Add a check-in link first.</string>
     <string name="test_all_ok">It worked. Your family should see the test message.</string>
-    <string name="test_some_failed">%1$d of %2$d links worked. Check the links, and that the phone is online.</string>
     <string name="label_pause">Going away?</string>
     <string name="pause_1_day">1 day</string>
     <string name="pause_3_days">3 days</string>
@@ -53,4 +51,13 @@
     <string name="row_notifications_off">Notifications are off</string>
     <string name="row_battery_on">App is allowed to run</string>
     <string name="row_battery_off">Battery saver may stop reminders</string>
+
+    <plurals name="time_help">
+        <item quantity="one">If you haven\'t tapped I\'m OK, the reminder repeats after %1$d minutes, %2$d more time.</item>
+        <item quantity="other">If you haven\'t tapped I\'m OK, the reminder repeats every %1$d minutes, up to %2$d more times.</item>
+    </plurals>
+    <plurals name="test_some_failed">
+        <item quantity="one">%1$d of %2$d link worked. Check the links, and that the phone is online.</item>
+        <item quantity="other">%1$d of %2$d links worked. Check the links, and that the phone is online.</item>
+    </plurals>
 </resources>

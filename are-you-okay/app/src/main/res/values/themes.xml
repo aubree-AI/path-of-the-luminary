@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.AreYouOkay" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.AreYouOkay.Base" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:colorPrimary">@color/ok_green</item>
         <item name="android:colorPrimaryDark">@color/background</item>
         <item name="android:colorAccent">@color/ok_green</item>
@@ -9,12 +9,12 @@
         <item name="android:statusBarColor">@color/background</item>
         <item name="android:navigationBarColor">@color/background</item>
         <item name="android:windowLightStatusBar">@bool/light_bars</item>
-        <item name="android:windowLightNavigationBar">@bool/light_bars</item>
         <item name="android:textColor">@color/text</item>
         <item name="android:textColorPrimary">@color/text</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:textColorHint">@color/text_secondary</item>
     </style>
+    <style name="Theme.AreYouOkay" parent="Theme.AreYouOkay.Base" />
 
     <!-- Text styles. Sizes are in sp so they follow the phone's font-size setting. -->
     <style name="Text" />
@@ -91,7 +91,7 @@
     </style>
     <style name="SecondaryButton" parent="PrimaryButton">
         <item name="android:background">@drawable/button_secondary</item>
-        <item name="android:textColor">@color/ok_green</item>
+        <item name="android:textColor">@color/ok_green_text</item>
     </style>
     <style name="Chip">
         <item name="android:layout_width">0dp</item>

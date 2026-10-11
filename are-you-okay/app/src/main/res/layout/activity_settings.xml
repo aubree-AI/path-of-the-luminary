@@ -51,7 +51,7 @@
 
                 <!-- About you -->
                 <LinearLayout style="@style/Card" android:layout_marginTop="4dp">
-                    <TextView style="@style/CardTitle" android:accessibilityHeading="true" android:labelFor="@id/name" android:text="@string/label_name" />
+                    <TextView style="@style/CardTitle" android:accessibilityHeading="true" android:labelFor="@+id/name" android:text="@string/label_name" />
                     <TextView style="@style/CardHelp" android:text="@string/help_name" />
                     <EditText
                         android:id="@+id/name"
@@ -88,7 +88,7 @@
 
                 <!-- Who gets told -->
                 <LinearLayout style="@style/Card">
-                    <TextView style="@style/CardTitle" android:accessibilityHeading="true" android:labelFor="@id/links" android:text="@string/label_links" />
+                    <TextView style="@style/CardTitle" android:accessibilityHeading="true" android:labelFor="@+id/links" android:text="@string/label_links" />
                     <TextView style="@style/CardHelp" android:text="@string/help_links" />
                     <EditText
                         android:id="@+id/links"

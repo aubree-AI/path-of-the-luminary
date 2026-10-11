@@ -64,16 +64,33 @@ class ScreensTest {
         paparazzi.snapshot(main(state()))
     }
 
-    @Test fun settings() {
-        paparazzi.unsafeUpdateConfig(renderingMode = SessionParams.RenderingMode.V_SCROLL)
-        paparazzi.snapshot(LayoutInflater.from(paparazzi.context).inflate(R.layout.activity_settings, null))
+    private fun settingsView(paused: Boolean = false, batteryOk: Boolean = false): View {
+        val v = LayoutInflater.from(paparazzi.context).inflate(R.layout.activity_settings, null)
+        SettingsScreen(v).apply {
+            name.setText("Jean")
+            links.setText("https://hc-ping.com/5f2e1c3a-8b7d-4e21-9a6f-2c4d8e1b7a90\nhttps://ntfy.sh/mom-okay-7f3k29xq")
+            bind(
+                SettingsScreen.State(
+                    reminderAt = nineAm - 2 * 60_000,
+                    pausedUntil = if (paused) nineAm + 7 * oneDay else null,
+                    notificationsOk = true,
+                    batteryOk = batteryOk,
+                ),
+            )
+        }
+        return v
     }
 
-    @Test fun settings_dark() {
+    @Test fun settings() {
+        paparazzi.unsafeUpdateConfig(renderingMode = SessionParams.RenderingMode.V_SCROLL)
+        paparazzi.snapshot(settingsView())
+    }
+
+    @Test fun settings_dark_paused() {
         paparazzi.unsafeUpdateConfig(
             DeviceConfig.PIXEL_5.copy(nightMode = NightMode.NIGHT),
             renderingMode = SessionParams.RenderingMode.V_SCROLL,
         )
-        paparazzi.snapshot(LayoutInflater.from(paparazzi.context).inflate(R.layout.activity_settings, null))
+        paparazzi.snapshot(settingsView(paused = true, batteryOk = true))
     }
 }
