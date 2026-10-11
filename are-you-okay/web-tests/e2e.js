@@ -11,8 +11,10 @@ const vercel = JSON.parse(fs.readFileSync(path.join(W, 'vercel.json')));
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.webmanifest': 'application/manifest+json' };
 const server = http.createServer((req, res) => {
   let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+  // Route exactly like vercel.json does (an earlier "cleanUrls" guess here hid a real 404 on Vercel).
+  const rewrite = (vercel.rewrites || []).find((r) => r.source === p);
+  if (rewrite) p = rewrite.destination;
   if (p === '/') p = '/index.html';
-  if (!path.extname(p)) p += '.html'; // cleanUrls
   const f = path.join(W, p);
   if (!fs.existsSync(f)) { res.writeHead(404); return res.end(); }
   for (const h of vercel.headers[0].headers) res.setHeader(h.key, h.value);
