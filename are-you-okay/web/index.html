@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Are You Okay?</title>
+  <meta name="description" content="One tap a day to let your family know you're okay.">
+  <meta name="theme-color" content="#F6F4EF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121411" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="I'm OK">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icons/icon-180.png">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <main class="page home">
+    <div class="top">
+      <span class="overline" id="date"></span>
+      <button class="icon-btn" id="settings-btn" aria-label="Settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.48.48 0 0 0-.48-.41h-3.84a.47.47 0 0 0-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.48.48 0 0 0-.59.22L2.74 8.87a.47.47 0 0 0 .12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.47.47 0 0 0-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2z"/></svg>
+      </button>
+    </div>
+    <h1 id="greeting">Hello</h1>
+    <p class="muted" id="prompt">Tap the big button so your family knows you're okay.</p>
+
+    <button class="ok" id="ok">
+      <svg id="ok-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      <span class="label" id="ok-label">I'm OK</span>
+      <span class="sub" id="ok-sub" hidden></span>
+    </button>
+
+    <div class="status" id="status" role="status" aria-live="polite">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path id="status-icon" d=""/></svg>
+      <span id="status-text"></span>
+    </div>
+    <button class="btn danger" id="help-btn">I need help</button>
+  </main>
+
+  <dialog id="help-dialog">
+    <form method="dialog" class="page">
+      <h2>Alert your family now?</h2>
+      <p>This sends an urgent alert to your family right away.</p>
+      <p><strong>It does not call emergency services.</strong> If you are in danger, call 911 or your local emergency number.</p>
+      <button class="btn danger" value="yes">Yes, alert my family</button>
+      <button class="btn" value="no">Cancel</button>
+    </form>
+  </dialog>
+
+  <dialog id="settings">
+    <form method="dialog" class="page">
+      <div class="top"><h2>Settings</h2><button class="icon-btn" value="close" aria-label="Close">✕</button></div>
+      <div class="card">
+        <label for="name">Your name</label>
+        <p class="muted small">Shown in the messages your family receives.</p>
+        <input id="name" autocomplete="name">
+      </div>
+      <div class="card">
+        <label for="links">Who gets told</label>
+        <p class="muted small">Easiest: open the setup link your family sent you. Or paste their links here, one per line.</p>
+        <textarea id="links" spellcheck="false" autocapitalize="off"></textarea>
+        <ul class="list small" id="link-summary"></ul>
+        <button class="btn" type="button" id="test-btn">Send a test message</button>
+        <p class="muted small" id="test-result" aria-live="polite"></p>
+      </div>
+      <div class="card" id="install-card">
+        <label>Put it on your home screen</label>
+        <p class="muted small" id="install-text">iPhone: tap Share, then <strong>Add to Home Screen</strong>. Android: tap the browser menu, then <strong>Add to Home screen</strong> or <strong>Install app</strong>.</p>
+        <button class="btn" type="button" id="install-btn" hidden>Install</button>
+      </div>
+      <div class="card">
+        <label>Daily reminders</label>
+        <p class="muted small">Web pages can't remind you on a schedule. On Android, the <a href="https://github.com/aubree-AI/path-of-the-luminary/tree/main/are-you-okay#3-moms-phone-install-the-app">Are You Okay? app</a> reminds you every day. On iPhone, set a daily alarm in the Clock app, for example "Tap I'm OK".</p>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

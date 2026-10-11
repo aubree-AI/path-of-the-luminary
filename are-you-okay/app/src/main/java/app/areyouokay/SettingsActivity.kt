@@ -104,6 +104,8 @@ class SettingsActivity : Activity() {
     private fun addLinks(text: String): Boolean {
         val found = Links.extract(text)
         if (found.isEmpty()) return false
+        // A setup link from the family page also carries her name.
+        Links.setup(text)?.name?.takeIf { it.isNotEmpty() && screen.name.text.isBlank() }?.let { screen.name.setText(it) }
         val merged = (screen.links.text.toString().lines().map { it.trim() }.filter { it.isNotEmpty() } + found).distinct()
         screen.links.setText(merged.joinToString("\n"))
         save()

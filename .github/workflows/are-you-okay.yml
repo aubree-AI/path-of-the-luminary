@@ -55,3 +55,24 @@ jobs:
             are-you-okay/app/build/reports/
             are-you-okay/app/build/test-results/
           if-no-files-found: ignore
+
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: are-you-okay/web-tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: End-to-end test of the web version (phone-sized, Vercel headers)
+        run: npm test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: web-screenshots
+          path: are-you-okay/web-tests/screenshots/
+          if-no-files-found: ignore

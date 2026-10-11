@@ -68,9 +68,11 @@ object CheckIn {
         headers.forEach { (k, v) -> conn.setRequestProperty(k, v) }
         conn.outputStream.use { it.write(message.toByteArray()) }
         val code = conn.responseCode
+        // Healthchecks answers a mistyped check with HTTP 200 "OK (not found)", so read the reply.
+        val body = if (code in 200..299) conn.inputStream.bufferedReader().use { r -> CharArray(200).let { buf -> String(buf, 0, maxOf(0, r.read(buf))) } } else ""
         conn.disconnect()
         when (code) {
-            in 200..299 -> Result.SENT
+            in 200..299 -> if (body.contains("not found", ignoreCase = true)) Result.BROKEN_LINK else Result.SENT
             408, 425, 429, in 500..599 -> Result.RETRY
             else -> Result.BROKEN_LINK
         }

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Family Setup</title>
+  <meta name="description" content="Set up a daily check-in for someone you love, and see their recent check-ins.">
+  <meta name="theme-color" content="#F6F4EF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121411" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/family.js"></script>
+</head>
+<body>
+  <main class="page">
+    <span class="overline">For the family</span>
+    <h1>Daily check-ins for someone you love</h1>
+    <p class="muted">Fill this in once. You'll get one personal link to send them. They tap it, and they're set up. Nothing you type here leaves this phone except inside that link.</p>
+
+    <section class="card" id="recent-card" hidden>
+      <h2>Recent check-ins</h2>
+      <ul class="list" id="recent"></ul>
+      <p class="muted small" id="recent-note"></p>
+    </section>
+
+    <section class="card">
+      <h2>1. Their name</h2>
+      <input id="name" placeholder="For example, Jean" autocomplete="off">
+    </section>
+
+    <section class="card">
+      <h2>2. Missed check-in alert</h2>
+      <p class="muted small">This is what alerts you when they <em>don't</em> check in, even if their phone is off or dead.</p>
+      <ol class="small">
+        <li>Sign up free at <a href="https://healthchecks.io" target="_blank" rel="noopener">healthchecks.io</a> and tap <strong>Add Check</strong>.</li>
+        <li>Schedule: <strong>Cron</strong> <code>0 0 * * *</code>, their <strong>time zone</strong>, and <strong>Grace time</strong> = the hour you'd worry (e.g. 11 hours = alert at 11 AM).</li>
+        <li>Under <strong>Integrations</strong>, choose how you're alerted (email is on already; ntfy, Signal or Telegram give a phone push).</li>
+        <li>Copy the check's <strong>ping URL</strong> and paste it here.</li>
+      </ol>
+      <input id="hc" placeholder="https://hc-ping.com/…" inputmode="url" autocapitalize="off" spellcheck="false">
+      <p class="small" id="hc-check" aria-live="polite"></p>
+    </section>
+
+    <section class="card">
+      <h2>3. A notification each time they check in</h2>
+      <p class="muted small">Optional. Install the free <a href="https://ntfy.sh" target="_blank" rel="noopener">ntfy</a> app and subscribe to this private topic name. Keep it secret; anyone who knows it can read it.</p>
+      <div class="row">
+        <input id="topic" autocapitalize="off" spellcheck="false" aria-label="ntfy topic">
+        <button class="btn" type="button" id="new-topic" style="flex:0 0 auto;width:auto">New name</button>
+      </div>
+      <p class="small"><a id="subscribe" target="_blank" rel="noopener">Open this topic in ntfy</a></p>
+    </section>
+
+    <section class="card">
+      <h2>4. Send them their link</h2>
+      <button class="btn primary" type="button" id="make">Create their link</button>
+      <div id="out" hidden>
+        <p class="small"><code id="link"></code></p>
+        <div class="row">
+          <button class="btn" type="button" id="copy">Copy link</button>
+          <button class="btn" type="button" id="share">Share…</button>
+        </div>
+        <p class="muted small">Text them the link. <strong>iPhone or any phone:</strong> tap it, then add the page to the home screen. <strong>Android app:</strong> press and hold the link in Messages, tap Share, choose <em>Are You Okay?</em>.</p>
+        <p class="muted small" id="copied" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <p class="muted small">Open source: <a href="https://github.com/aubree-AI/path-of-the-luminary/tree/main/are-you-okay">Are You Okay? on GitHub</a>. Not an emergency service.</p>
+  </main>
+</body>
+</html>

@@ -12,7 +12,7 @@ class CheckInSendTest {
     private lateinit var server: ServerSocket
     @Volatile private var lastBody = ""
     private val base get() = "http://127.0.0.1:${server.localPort}"
-    private val codes = mapOf("/ok" to 200, "/missing" to 404, "/busy" to 503, "/slow-down" to 429)
+    private val codes = mapOf("/ok" to 200, "/typo" to 200, "/missing" to 404, "/busy" to 503, "/slow-down" to 429)
 
     @Before fun start() {
         server = ServerSocket(0)
@@ -30,7 +30,9 @@ class CheckInSendTest {
                     }
                     lastBody = CharArray(length).also { input.read(it) }.concatToString()
                     val code = codes[path] ?: 404
-                    s.getOutputStream().write("HTTP/1.1 $code X\r\nContent-Length: 0\r\nConnection: close\r\n\r\n".toByteArray())
+                    // hc-ping.com's real answer for a mistyped check: HTTP 200 with this body.
+                    val reply = if (path == "/typo") "OK (not found)" else "OK"
+                    s.getOutputStream().write("HTTP/1.1 $code X\r\nContent-Length: ${reply.length}\r\nConnection: close\r\n\r\n$reply".toByteArray())
                 }
             }
         }
@@ -46,6 +48,7 @@ class CheckInSendTest {
     @Test fun wrongLinkIsNotRetried() {
         assertEquals(CheckIn.Result.BROKEN_LINK, CheckIn.send("$base/missing", "x"))
         assertEquals(CheckIn.Result.BROKEN_LINK, CheckIn.send("not a url", "x"))
+        assertEquals(CheckIn.Result.BROKEN_LINK, CheckIn.send("$base/typo", "x"))
     }
 
     @Test fun busyOrOfflineIsRetried() {

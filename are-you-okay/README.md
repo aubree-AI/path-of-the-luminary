@@ -89,6 +89,36 @@ Mom can pause reminders in Settings. On Healthchecks.io the family clicks
 **Pause** on the check. A paused check resumes automatically on Mom's next
 check-in, so there's nothing to remember to turn back on.
 
+## Web version (iPhone, or no install)
+
+`web/` is the same check-in as a web page you can add to the home screen. It works on
+iPhone and Android, and uses the same Healthchecks.io and ntfy links.
+
+- **`/family`**, for you: fill in her name, the Healthchecks ping URL (checked live, so a
+  typo is caught before you send it) and an ntfy topic. You get **one personal link**.
+  The page also lists her recent check-ins from ntfy.
+- **`/`**, for her: open the personal link once and she's set up. The settings travel in the
+  link's `#fragment`, which browsers never send to the server, and are then kept only on her phone.
+  The same link also sets up the Android app: press and hold it in Messages, tap Share, then choose Are You Okay?.
+- Same big **I'm OK** button, **I need help**, offline queue, dark mode, and an "Add to Home Screen" install.
+- **Limit:** a web page can't remind her at 9:00 every day. Use the Android app for that,
+  or a daily alarm in the phone's Clock app.
+
+### Put it on Vercel (free, about 2 minutes)
+
+1. Go to https://vercel.com/new and import this GitHub repository.
+2. Set **Root Directory** to `are-you-okay/web`, set **Framework Preset** to **Other**, and leave the build command empty.
+3. Click **Deploy**. Each push afterwards redeploys it automatically.
+4. Open `https://<your-project>.vercel.app/family` to make her link.
+
+Vercel serves only the production branch publicly. Branch "preview" links ask visitors to log
+in to Vercel, so make sure the version she uses is on the production branch (normally `main`).
+`vercel.json` adds strict security headers: a CSP, no referrer, and no camera, microphone or location access.
+
+Test it: `cd web-tests && npm ci && npx playwright install chromium && npm test`. This runs the whole
+flow (family setup, her link, check-in, help, offline, mistyped link) in a phone-sized
+browser with Vercel's headers, and saves screenshots.
+
 ## What the app does (and doesn't)
 
 - **One big button.** White on dark green (about 8:1 contrast), a heart icon, and a calm
@@ -116,7 +146,7 @@ check-in, so there's nothing to remember to turn back on.
 | --- | --- |
 | **SMS from the phone** | Google Play blocks `SEND_SMS` for apps that aren't the default SMS app. Android 15+ marks it as a "restricted setting" for sideloaded apps. And the phone that should send the alert may be the one that's dead. |
 | **SMS via Twilio etc.** | Needs a paid account, A2P 10DLC registration in the US, and a server. Healthchecks.io can do SMS/WhatsApp on paid plans if you really need it. |
-| **PWA (web app)** | Easiest to share, and works on iPhone. But a web page can't reliably fire a local reminder at 9:00 every day (the Notification Triggers API was abandoned). It would need a push server. A PWA *button* + a phone alarm clock + Healthchecks.io does work, and is the obvious iOS path (see Roadmap). |
+| **PWA (web app) only** | Easiest to share, and works on iPhone, so it's included (`web/`). But a web page can't reliably fire a local reminder at 9:00 every day (the Notification Triggers API was abandoned) without a push server, so the Android app stays the main path on Android. |
 | **Full-screen alarm** | Android 14+ only grants full-screen intents to alarm/calling apps. A high-priority notification that repeats is enough, and less alarming. |
 | **Location sharing** | Adds permissions and complexity. Google Maps "Location sharing" or Life360 already do this well. |
 
@@ -166,7 +196,7 @@ secrets: `AYO_KEYSTORE_BASE64`, `AYO_KEYSTORE_PASSWORD`, `AYO_KEY_ALIAS`,
 
 ## Roadmap ideas (good first contributions)
 
-- **iPhone / PWA version**: a one-page web app with the same button POSTing to the same links.
+- Daily reminders for the web version (Web Push from a scheduled function).
 - Choose the number and spacing of reminders in Settings.
 - Show a short history of recent check-ins.
 - A check-in history page for the family (Healthchecks.io already keeps one per check).

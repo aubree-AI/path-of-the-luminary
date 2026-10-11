@@ -1,12 +1,13 @@
 package app.areyouokay
 
 import java.net.URI
+import java.util.Base64
 
 /** Understands the check-in links so the app can describe them in plain words. Pure Kotlin, unit-tested. */
 object Links {
     enum class Kind { HEALTHCHECKS, NTFY, OTHER, INVALID }
 
-    private val urlPattern = Regex("""(?:https?://)?[\w.-]+\.[a-z]{2,}(?::\d+)?(?:/[^\s]*)?""", RegexOption.IGNORE_CASE)
+    private val urlPattern = Regex("""(?:https?://)?[\w.-]+\.[a-z]{2,}(?::\d+)?(?:[/#][^\s]*)?""", RegexOption.IGNORE_CASE)
 
     /** Adds https:// when someone typed "ntfy.sh/mom"; returns null for anything that isn't a web link. */
     fun normalize(raw: String): String? {
@@ -32,13 +33,34 @@ object Links {
         }
     }
 
-    /** Pulls every web link out of a shared message, e.g. "Mom, here's your link: https://hc-ping.com/abc". */
+    /**
+     * Pulls every web link out of a shared message, e.g. "Mom, here's your link: https://hc-ping.com/abc".
+     * A setup link from the family web page (…/#c=…) is opened up and its links used instead.
+     */
     fun extract(text: String): List<String> =
-        urlPattern.findAll(text).mapNotNull { m ->
+        urlPattern.findAll(text).flatMap { m ->
             val s = m.value
-            // Only take bare domains ("ntfy.sh/x") when they have a path, so "Hi Mom." isn't a link.
-            if (!s.contains("://") && !s.contains('/')) null else normalize(s)
+            when {
+                s.contains("#c=") -> setup(s)?.links.orEmpty().asSequence()
+                // Only take bare domains ("ntfy.sh/x") when they have a path, so "Hi Mom." isn't a link.
+                !s.contains("://") && !s.contains('/') -> emptySequence()
+                else -> listOfNotNull(normalize(s)).asSequence()
+            }
         }.distinct().toList()
+
+    data class Setup(val name: String, val links: List<String>)
+
+    /** Reads the settings packed into a family-page setup link: https://…/#c=<base64url JSON>. */
+    fun setup(text: String): Setup? {
+        val encoded = Regex("""#c=([A-Za-z0-9_-]+)""").find(text)?.groupValues?.get(1) ?: return null
+        val json = try { String(Base64.getUrlDecoder().decode(encoded)) } catch (e: Exception) { return null }
+        val links = Regex(""""links"\s*:\s*\[(.*?)]""").find(json)?.groupValues?.get(1)
+            ?.let { Regex(""""([^"]+)"""").findAll(it).mapNotNull { m -> normalize(m.groupValues[1]) }.toList() }
+            ?: return null
+        val name = Regex(""""name"\s*:\s*"((?:[^"\\]|\\.)*)"""").find(json)?.groupValues?.get(1)
+            ?.replace("\\\"", "\"")?.replace("\\\\", "\\")?.take(60).orEmpty()
+        return Setup(name, links)
+    }
 
     /** Where an "I need help" alert goes: Healthchecks' /fail alerts right away; others get the same link. */
     fun helpTarget(link: String): String {

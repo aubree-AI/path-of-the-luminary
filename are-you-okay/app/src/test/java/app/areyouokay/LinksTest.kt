@@ -42,4 +42,14 @@ class LinksTest {
         assertEquals("urgent", Links.helpHeaders("https://ntfy.sh/mom")["Priority"])
         assertEquals(emptyMap<String, String>(), Links.helpHeaders("https://hc-ping.com/abc"))
     }
+
+    // Made by web/shared.js encodeConfig(), so the web page and the app stay in sync.
+    private val setupLink = "https://are-you-okay.vercel.app/#c=eyJ2IjoxLCJuYW1lIjoiSm9zw6kgXCJKb1wiIiwibGlua3MiOlsiaHR0cHM6Ly9oYy1waW5nLmNvbS81ZjJlMWMzYSIsImh0dHBzOi8vbnRmeS5zaC9va2F5LWFiYyJdfQ"
+
+    @Test fun familyPageSetupLinkConfiguresTheApp() {
+        val msg = "Mom, tap this: $setupLink ❤️"
+        assertEquals(listOf("https://hc-ping.com/5f2e1c3a", "https://ntfy.sh/okay-abc"), Links.extract(msg))
+        assertEquals("José \"Jo\"", Links.setup(msg)?.name)
+        assertNull(Links.setup("https://example.com/#c=%%"))
+    }
 }
