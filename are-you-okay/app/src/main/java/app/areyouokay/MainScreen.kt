@@ -24,6 +24,9 @@ class MainScreen(private val root: View) {
         val reminderAt: Long,
         val delivery: Delivery,
         val remindersOff: Boolean = false,
+        /** When "I need help" was pressed today, and whether the alert has gone out. */
+        val helpAt: Long? = null,
+        val helpDelivered: Boolean = false,
     )
 
     private val ctx = root.context
@@ -35,6 +38,7 @@ class MainScreen(private val root: View) {
     private val okLabel: TextView = root.findViewById(R.id.ok_label)
     private val okSub: TextView = root.findViewById(R.id.ok_sub)
     val statusCard: View = root.findViewById(R.id.status_card)
+    val helpButton: View = root.findViewById(R.id.help_button)
     private val statusIcon: ImageView = root.findViewById(R.id.status_icon)
     private val statusText: TextView = root.findViewById(R.id.status_text)
 
@@ -90,7 +94,15 @@ class MainScreen(private val root: View) {
             okButton.contentDescription = ctx.getString(R.string.im_ok_description)
         }
 
+        // Nobody to alert until a link is set up.
+        helpButton.visibility = if (s.delivery == Delivery.NOT_SET_UP) View.GONE else View.VISIBLE
+
         when {
+            s.helpAt != null ->
+                status(
+                    Tone.DANGER, R.drawable.ic_warning,
+                    if (s.helpDelivered) ctx.getString(R.string.help_sent, time.format(Date(s.helpAt))) else ctx.getString(R.string.help_sending),
+                )
             s.delivery == Delivery.NOT_SET_UP ->
                 status(Tone.WARNING, R.drawable.ic_warning, ctx.getString(R.string.delivery_not_set_up), tappable = true)
             s.delivery == Delivery.BROKEN_LINK ->
@@ -109,7 +121,7 @@ class MainScreen(private val root: View) {
         }
     }
 
-    private enum class Tone { OK, WARNING, NEUTRAL }
+    private enum class Tone { OK, WARNING, NEUTRAL, DANGER }
 
     private fun status(tone: Tone, icon: Int, text: String, tappable: Boolean = false) {
         statusCard.visibility = View.VISIBLE
@@ -121,6 +133,7 @@ class MainScreen(private val root: View) {
                 Tone.OK -> R.drawable.status_ok
                 Tone.WARNING -> R.drawable.status_warning
                 Tone.NEUTRAL -> R.drawable.card
+                Tone.DANGER -> R.drawable.status_danger
             },
         )
         val color = ctx.getColor(
@@ -128,6 +141,7 @@ class MainScreen(private val root: View) {
                 Tone.OK -> R.color.on_done_container
                 Tone.WARNING -> R.color.on_warning_container
                 Tone.NEUTRAL -> R.color.text_secondary
+                Tone.DANGER -> R.color.danger
             },
         )
         statusIcon.setImageResource(icon)

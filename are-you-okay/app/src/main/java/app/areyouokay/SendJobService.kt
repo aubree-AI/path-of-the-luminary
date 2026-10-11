@@ -15,6 +15,10 @@ class SendJobService : JobService() {
     @Volatile private var worker: Thread? = null
 
     override fun onStartJob(params: JobParameters): Boolean {
+        if (params.jobId == HELP_JOB_ID) {
+            worker = Thread { jobFinished(params, !sendHelp()) }.also { it.start() }
+            return true
+        }
         worker = Thread {
             val prefs = Prefs(this)
             val message = prefs.pendingMessage
@@ -36,6 +40,19 @@ class SendJobService : JobService() {
         return true
     }
 
+    /** Returns true when nothing is left to send. */
+    private fun sendHelp(): Boolean {
+        val prefs = Prefs(this)
+        val message = prefs.helpMessage
+        val done = prefs.helpPendingLinks.filter {
+            CheckIn.send(Links.helpTarget(it), message, Links.helpHeaders(it)) != CheckIn.Result.RETRY
+        }.toSet()
+        return synchronized(CheckIn) {
+            if (prefs.helpMessage == message) prefs.helpPendingLinks = prefs.helpPendingLinks - done
+            prefs.helpPendingLinks.isEmpty()
+        }
+    }
+
     override fun onStopJob(params: JobParameters): Boolean {
         worker?.interrupt()
         return true
@@ -43,11 +60,13 @@ class SendJobService : JobService() {
 
     companion object {
         private const val JOB_ID = 1
+        private const val HELP_JOB_ID = 2
 
-        fun schedule(context: Context) {
-            val job = JobInfo.Builder(JOB_ID, ComponentName(context, SendJobService::class.java))
+        fun schedule(context: Context, help: Boolean = false) {
+            val job = JobInfo.Builder(if (help) HELP_JOB_ID else JOB_ID, ComponentName(context, SendJobService::class.java))
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .setBackoffCriteria(30_000L, JobInfo.BACKOFF_POLICY_EXPONENTIAL)
+                // Retry an urgent alert quickly; check-ins can wait longer.
+                .setBackoffCriteria(if (help) 10_000L else 30_000L, JobInfo.BACKOFF_POLICY_EXPONENTIAL)
                 .setPersisted(true)
                 .build()
             context.getSystemService(JobScheduler::class.java).schedule(job)

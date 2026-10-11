@@ -34,4 +34,12 @@ class LinksTest {
         assertEquals(listOf("https://hc-ping.com/abc-123", "https://ntfy.sh/mom-okay-7f3k"), Links.extract(msg))
         assertEquals(emptyList<String>(), Links.extract("Hi Mom. Call me."))
     }
+
+    @Test fun helpGoesToHealthchecksFailAndNtfyUrgently() {
+        assertEquals("https://hc-ping.com/abc/fail", Links.helpTarget("https://hc-ping.com/abc"))
+        assertEquals("https://hc-ping.com/abc/fail", Links.helpTarget("hc-ping.com/abc/"))
+        assertEquals("https://ntfy.sh/mom", Links.helpTarget("https://ntfy.sh/mom"))
+        assertEquals("urgent", Links.helpHeaders("https://ntfy.sh/mom")["Priority"])
+        assertEquals(emptyMap<String, String>(), Links.helpHeaders("https://hc-ping.com/abc"))
+    }
 }

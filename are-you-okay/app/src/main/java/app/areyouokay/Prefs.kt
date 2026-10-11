@@ -47,6 +47,19 @@ class Prefs(context: Context) {
         get() = p.getStringSet("broken_links", emptySet()) ?: emptySet()
         set(v) = p.edit().putStringSet("broken_links", v).apply()
 
+    /** "I need help": when it was pressed, and which links still need the alert. */
+    var helpAtMillis: Long
+        get() = p.getLong("help_at", 0L)
+        set(v) = p.edit().putLong("help_at", v).apply()
+
+    var helpPendingLinks: Set<String>
+        get() = p.getStringSet("help_pending_links", emptySet()) ?: emptySet()
+        set(v) = p.edit().putStringSet("help_pending_links", v).apply()
+
+    var helpMessage: String
+        get() = p.getString("help_message", "") ?: ""
+        set(v) = p.edit().putString("help_message", v).apply()
+
     var lastDeliveredMillis: Long
         get() = p.getLong("last_delivered", 0L)
         set(v) = p.edit().putLong("last_delivered", v).apply()

@@ -84,4 +84,12 @@
     <string name="delivery_broken">Your check-in couldn\'t reach one of your family\'s links. Ask them to check it. Tap for details.</string>
     <string name="reminders_off">Reminders are turned off, so you won\'t be reminded. Tap here to fix.</string>
     <string name="link_broken">Didn\'t work last time: %1$s. Ask your family to check this link.</string>
+
+    <string name="need_help">I need help</string>
+    <string name="help_confirm_title">Alert your family now?</string>
+    <string name="help_confirm_text">This sends an urgent alert to your family right away.\n\nIt does not call emergency services. If you are in danger, call 911 or your local emergency number.</string>
+    <string name="help_confirm_yes">Yes, alert my family</string>
+    <string name="help_confirm_no">Cancel</string>
+    <string name="help_sent">Your family was alerted at %1$s.</string>
+    <string name="help_sending">Sending your alert. It will go out as soon as the phone is online.</string>
 </resources>

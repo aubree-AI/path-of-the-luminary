@@ -11,6 +11,7 @@ class BootReceiver : BroadcastReceiver() {
         Reminders.createChannel(context)
         Reminders.scheduleNextDaily(context)
         if (Prefs(context).pendingLinks.isNotEmpty()) SendJobService.schedule(context)
+        if (Prefs(context).helpPendingLinks.isNotEmpty()) SendJobService.schedule(context, help = true)
     }
 
     private companion object {

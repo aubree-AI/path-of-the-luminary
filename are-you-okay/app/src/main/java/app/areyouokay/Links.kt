@@ -40,5 +40,15 @@ object Links {
             if (!s.contains("://") && !s.contains('/')) null else normalize(s)
         }.distinct().toList()
 
+    /** Where an "I need help" alert goes: Healthchecks' /fail alerts right away; others get the same link. */
+    fun helpTarget(link: String): String {
+        val url = normalize(link) ?: return link
+        return if (kind(url) == Kind.HEALTHCHECKS) url.trimEnd('/') + "/fail" else url
+    }
+
+    /** ntfy: top priority (breaks through Do Not Disturb on most phones) with a warning icon. */
+    fun helpHeaders(link: String): Map<String, String> =
+        if (kind(link) == Kind.NTFY) mapOf("Priority" to "urgent", "Tags" to "rotating_light", "Title" to "Needs help") else emptyMap()
+
     fun host(link: String): String = try { URI(normalize(link)).host } catch (e: Exception) { link }
 }

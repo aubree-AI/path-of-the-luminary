@@ -31,6 +31,23 @@ object CheckIn {
         }
     }
 
+    /**
+     * "I need help": an urgent alert to every link. Healthchecks.io gets its /fail signal,
+     * which alerts the family immediately instead of waiting for the missed check-in.
+     */
+    fun requestHelp(context: Context) {
+        val prefs = Prefs(context)
+        val now = System.currentTimeMillis()
+        val who = prefs.name.ifEmpty { "Your family member" }
+        val time = DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(now))
+        synchronized(this) {
+            prefs.helpAtMillis = now
+            prefs.helpMessage = "$who pressed I NEED HELP at $time. Please call them now."
+            prefs.helpPendingLinks = prefs.links.toSet()
+        }
+        SendJobService.schedule(context, help = true)
+    }
+
     enum class Result { SENT, RETRY, BROKEN_LINK }
 
     /** POSTs [message] as plain text. Works for Healthchecks.io ping URLs and ntfy topics alike. Blocking. */
@@ -41,13 +58,14 @@ object CheckIn {
      * "this link will never work" (wrong address, deleted check), so a bad link
      * isn't retried forever while the screen blames the internet.
      */
-    fun send(link: String, message: String): Result = try {
+    fun send(link: String, message: String, headers: Map<String, String> = emptyMap()): Result = try {
         val conn = URL(link).openConnection() as HttpURLConnection
         conn.requestMethod = "POST"
         conn.connectTimeout = 15_000
         conn.readTimeout = 15_000
         conn.doOutput = true
         conn.setRequestProperty("Content-Type", "text/plain; charset=utf-8")
+        headers.forEach { (k, v) -> conn.setRequestProperty(k, v) }
         conn.outputStream.use { it.write(message.toByteArray()) }
         val code = conn.responseCode
         conn.disconnect()

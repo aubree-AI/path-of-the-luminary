@@ -19,5 +19,8 @@
 
     <color name="warning_container">#FFF1D6</color>
     <color name="on_warning_container">#5C3B00</color>
+    <!-- "I need help": reserved for the alert button and its status. -->
+    <color name="danger">#B3261E</color>
+    <color name="danger_container">#FCE8E6</color>
     <color name="ripple">#33000000</color>
 </resources>

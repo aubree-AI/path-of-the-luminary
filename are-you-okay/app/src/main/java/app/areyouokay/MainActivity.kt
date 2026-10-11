@@ -2,6 +2,7 @@ package app.areyouokay
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.NotificationManager
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,6 +12,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.HapticFeedbackConstants
 import java.time.Duration
+import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.Calendar
 
@@ -43,6 +45,17 @@ class MainActivity : Activity() {
         val openSettings = { _: android.view.View -> startActivity(Intent(this, SettingsActivity::class.java)) }
         findViewById<android.view.View>(R.id.settings_button).setOnClickListener(openSettings)
         screen.statusCard.setOnClickListener(openSettings)
+        screen.helpButton.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.help_confirm_title)
+                .setMessage(R.string.help_confirm_text)
+                .setPositiveButton(R.string.help_confirm_yes) { _, _ ->
+                    CheckIn.requestHelp(this)
+                    refresh()
+                }
+                .setNegativeButton(R.string.help_confirm_no, null)
+                .show()
+        }
 
         Reminders.createChannel(this)
         Reminders.scheduleNextDaily(this)
@@ -90,6 +103,8 @@ class MainActivity : Activity() {
                 reminderAt = reminderAt,
                 delivery = delivery,
                 remindersOff = !getSystemService(NotificationManager::class.java).areNotificationsEnabled(),
+                helpAt = prefs.helpAtMillis.takeIf { it != 0L && Schedule.isSameDay(it, System.currentTimeMillis(), ZoneId.systemDefault()) },
+                helpDelivered = prefs.helpPendingLinks.isEmpty(),
             ),
         )
         // If the app is left open overnight, switch back to "I'm OK" at midnight.
