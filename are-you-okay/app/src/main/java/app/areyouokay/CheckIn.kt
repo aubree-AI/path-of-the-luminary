@@ -1,7 +1,6 @@
 package app.areyouokay
 
 import android.content.Context
-import android.util.Log
 import java.net.HttpURLConnection
 import java.net.URL
 import java.text.DateFormat
@@ -26,13 +25,23 @@ object CheckIn {
             synchronized(this) {
                 prefs.pendingMessage = "$who checked in: I'm OK ($time)"
                 prefs.pendingLinks = links.toSet()
+                prefs.brokenLinks = emptySet()
             }
             SendJobService.schedule(context)
         }
     }
 
+    enum class Result { SENT, RETRY, BROKEN_LINK }
+
     /** POSTs [message] as plain text. Works for Healthchecks.io ping URLs and ntfy topics alike. Blocking. */
-    fun post(link: String, message: String): Boolean = try {
+    fun post(link: String, message: String): Boolean = send(link, message) == Result.SENT
+
+    /**
+     * Like [post], but tells "try again later" (offline, server busy) apart from
+     * "this link will never work" (wrong address, deleted check), so a bad link
+     * isn't retried forever while the screen blames the internet.
+     */
+    fun send(link: String, message: String): Result = try {
         val conn = URL(link).openConnection() as HttpURLConnection
         conn.requestMethod = "POST"
         conn.connectTimeout = 15_000
@@ -42,9 +51,18 @@ object CheckIn {
         conn.outputStream.use { it.write(message.toByteArray()) }
         val code = conn.responseCode
         conn.disconnect()
-        code in 200..299
+        when (code) {
+            in 200..299 -> Result.SENT
+            408, 425, 429, in 500..599 -> Result.RETRY
+            else -> Result.BROKEN_LINK
+        }
+    } catch (e: java.net.MalformedURLException) {
+        Result.BROKEN_LINK
+    } catch (e: java.net.UnknownHostException) {
+        // Offline phones also fail DNS, so this is treated as "try again".
+        Result.RETRY
     } catch (e: Exception) {
-        Log.w("AreYouOkay", "Could not reach $link", e)
-        false
+        // Timeouts, no connection, TLS hiccups: all worth trying again later.
+        Result.RETRY
     }
 }

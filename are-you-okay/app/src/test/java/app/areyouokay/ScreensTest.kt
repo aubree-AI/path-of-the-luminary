@@ -48,6 +48,8 @@ class ScreensTest {
     @Test fun main_done() = paparazzi.snapshot(main(state(checkedIn = true, delivery = MainScreen.Delivery.SENT)))
     @Test fun main_offline() = paparazzi.snapshot(main(state(checkedIn = true, delivery = MainScreen.Delivery.WAITING)))
     @Test fun main_notSetUp() = paparazzi.snapshot(main(state(name = "", delivery = MainScreen.Delivery.NOT_SET_UP)))
+    @Test fun main_brokenLink() = paparazzi.snapshot(main(state(checkedIn = true, delivery = MainScreen.Delivery.BROKEN_LINK)))
+    @Test fun main_remindersOff() = paparazzi.snapshot(main(state().copy(remindersOff = true)))
     @Test fun main_paused() = paparazzi.snapshot(main(state(paused = true)))
 
     @Test fun main_dark() {

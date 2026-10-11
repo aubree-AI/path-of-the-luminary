@@ -18,14 +18,19 @@ class SendJobService : JobService() {
         worker = Thread {
             val prefs = Prefs(this)
             val message = prefs.pendingMessage
-            val sent = prefs.pendingLinks.filter { CheckIn.post(it, message) }.toSet()
+            val results = prefs.pendingLinks.associateWith { CheckIn.send(it, message) }
+            val done = results.filterValues { it != CheckIn.Result.RETRY }.keys
+            val broken = results.filterValues { it == CheckIn.Result.BROKEN_LINK }.keys
             // Only clear what was delivered, and only for this message: a newer check-in
             // made while we were sending keeps its own list.
             val stillPending = synchronized(CheckIn) {
-                if (prefs.pendingMessage == message) prefs.pendingLinks = prefs.pendingLinks - sent
+                if (prefs.pendingMessage == message) {
+                    prefs.pendingLinks = prefs.pendingLinks - done
+                    prefs.brokenLinks = prefs.brokenLinks + broken
+                }
                 prefs.pendingLinks
             }
-            if (stillPending.isEmpty()) prefs.lastDeliveredMillis = System.currentTimeMillis()
+            if (stillPending.isEmpty() && prefs.brokenLinks.isEmpty()) prefs.lastDeliveredMillis = System.currentTimeMillis()
             jobFinished(params, stillPending.isNotEmpty())
         }.also { it.start() }
         return true

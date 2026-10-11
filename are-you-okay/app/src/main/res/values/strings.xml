@@ -82,4 +82,8 @@
     <string name="share_confirm_yes">Yes, add it</string>
     <string name="share_confirm_no">No</string>
     <string name="share_no_link">That message didn\'t contain a link.</string>
+
+    <string name="delivery_broken">Your check-in couldn\'t reach one of your family\'s links. Ask them to check it. Tap for details.</string>
+    <string name="reminders_off">Reminders are turned off, so you won\'t be reminded. Tap here to fix.</string>
+    <string name="link_broken">Didn\'t work last time: %1$s. Ask your family to check this link.</string>
 </resources>

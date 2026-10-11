@@ -50,12 +50,16 @@ class SettingsScreen(private val root: View) {
     }
 
     /** Describes each link in plain words, and warns when nothing will alert the family. */
-    fun showLinks(text: String) {
+    fun showLinks(text: String, broken: Set<String> = emptySet()) {
         val box = root.findViewById<LinearLayout>(R.id.link_summary)
         box.removeAllViews()
         val lines = text.lines().map { it.trim() }.filter { it.isNotEmpty() }
         if (lines.isEmpty()) return
         lines.forEach { line ->
+            if ((Links.normalize(line) ?: line) in broken) {
+                summaryRow(box, R.drawable.ic_warning, R.color.on_warning_container, ctx.getString(R.string.link_broken, Links.host(line)))
+                return@forEach
+            }
             when (Links.kind(line)) {
                 Links.Kind.HEALTHCHECKS -> summaryRow(box, R.drawable.ic_check_circle, R.color.ok_green_text, ctx.getString(R.string.link_healthchecks))
                 Links.Kind.NTFY -> summaryRow(box, R.drawable.ic_check_circle, R.color.ok_green_text, ctx.getString(R.string.link_ntfy))

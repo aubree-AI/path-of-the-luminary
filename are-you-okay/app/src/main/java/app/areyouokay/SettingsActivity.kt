@@ -31,11 +31,11 @@ class SettingsActivity : Activity() {
         screen = SettingsScreen(findViewById(android.R.id.content))
         screen.name.setText(prefs.name)
         screen.links.setText(prefs.links.joinToString("\n"))
-        screen.showLinks(screen.links.text.toString())
+        screen.showLinks(screen.links.text.toString(), prefs.brokenLinks)
         screen.links.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) = screen.showLinks(s.toString())
+            override fun afterTextChanged(s: Editable?) = screen.showLinks(s.toString(), prefs.brokenLinks)
         })
         handleShare(intent)
 

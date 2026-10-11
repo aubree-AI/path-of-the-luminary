@@ -42,6 +42,11 @@ class Prefs(context: Context) {
         get() = p.getString("pending_message", "") ?: ""
         set(v) = p.edit().putString("pending_message", v).apply()
 
+    /** Links that answered "this will never work" on the last check-in (e.g. 404). */
+    var brokenLinks: Set<String>
+        get() = p.getStringSet("broken_links", emptySet()) ?: emptySet()
+        set(v) = p.edit().putStringSet("broken_links", v).apply()
+
     var lastDeliveredMillis: Long
         get() = p.getLong("last_delivered", 0L)
         set(v) = p.edit().putLong("last_delivered", v).apply()

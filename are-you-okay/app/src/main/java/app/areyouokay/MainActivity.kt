@@ -2,11 +2,16 @@ package app.areyouokay
 
 import android.Manifest
 import android.app.Activity
+import android.app.NotificationManager
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.HapticFeedbackConstants
+import java.time.Duration
+import java.time.ZonedDateTime
 import java.util.Calendar
 
 /** The whole app for the person checking in: one big button. */
@@ -17,6 +22,8 @@ class MainActivity : Activity() {
 
     private lateinit var prefs: Prefs
     private lateinit var screen: MainScreen
+    private val handler = Handler(Looper.getMainLooper())
+    private val refresher = Runnable { refresh() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +72,7 @@ class MainActivity : Activity() {
         val checkedIn = prefs.checkedInToday()
         val delivery = when {
             prefs.links.isEmpty() -> MainScreen.Delivery.NOT_SET_UP
+            checkedIn && prefs.brokenLinks.isNotEmpty() -> MainScreen.Delivery.BROKEN_LINK
             prefs.pendingLinks.isNotEmpty() -> MainScreen.Delivery.WAITING
             checkedIn && prefs.lastDeliveredMillis >= prefs.lastCheckInMillis -> MainScreen.Delivery.SENT
             else -> MainScreen.Delivery.NONE
@@ -81,7 +89,17 @@ class MainActivity : Activity() {
                 pausedUntil = if (prefs.isPaused) prefs.pausedUntilMillis else null,
                 reminderAt = reminderAt,
                 delivery = delivery,
+                remindersOff = !getSystemService(NotificationManager::class.java).areNotificationsEnabled(),
             ),
         )
+        // If the app is left open overnight, switch back to "I'm OK" at midnight.
+        handler.removeCallbacks(refresher)
+        val now = ZonedDateTime.now()
+        handler.postDelayed(refresher, Duration.between(now, Schedule.nextMidnight(now)).toMillis() + 1_000)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(refresher)
     }
 }
