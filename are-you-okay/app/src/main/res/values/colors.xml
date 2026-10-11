@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- White on this green is about 7.9:1 contrast (WCAG AAA). -->
+    <!-- Warm, calm palette. Every text/background pair meets WCAG AA; the button meets AAA. -->
+    <color name="background">#F6F4EF</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="outline">#E2DDD3</color>
+    <color name="text">#1C1B19</color>
+    <color name="text_secondary">#55524C</color>
+
+    <!-- White on ok_green is about 7.9:1. -->
     <color name="ok_green">#1B5E20</color>
     <color name="ok_green_pressed">#103A14</color>
-    <color name="text">#111111</color>
-    <color name="background">#FFFFFF</color>
+    <color name="on_ok_green">#FFFFFF</color>
+    <!-- "Done" state: dark green text on a pale green card. -->
+    <color name="done_container">#E3F1E4</color>
+    <color name="on_done_container">#14451A</color>
+
+    <color name="warning_container">#FFF1D6</color>
+    <color name="on_warning_container">#5C3B00</color>
+    <color name="ripple">#33000000</color>
 </resources>

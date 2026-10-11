@@ -7,32 +7,29 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
-import android.widget.Button
-import android.widget.TextView
-import java.text.DateFormat
-import java.util.Date
+import java.util.Calendar
 
 /** The whole app for the person checking in: one big button. */
 class MainActivity : Activity() {
     private lateinit var prefs: Prefs
-    private lateinit var okButton: Button
-    private lateinit var status: TextView
-    private lateinit var delivery: TextView
+    private lateinit var screen: MainScreen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         prefs = Prefs(this)
-        okButton = findViewById(R.id.ok_button)
-        status = findViewById(R.id.status)
-        delivery = findViewById(R.id.delivery)
+        screen = MainScreen(findViewById(android.R.id.content))
 
-        okButton.setOnClickListener {
-            it.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+        screen.okButton.setOnClickListener { button ->
+            button.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
             CheckIn.record(this)
-            refresh()
+            // A small "press" so the change from green button to thank-you card feels deliberate.
+            button.animate().scaleX(0.96f).scaleY(0.96f).setDuration(90).withEndAction {
+                refresh()
+                button.animate().scaleX(1f).scaleY(1f).setDuration(160).start()
+            }.start()
         }
-        findViewById<Button>(R.id.settings_button).setOnClickListener {
+        findViewById<android.view.View>(R.id.settings_button).setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
 
@@ -51,30 +48,26 @@ class MainActivity : Activity() {
     }
 
     private fun refresh() {
-        val time = DateFormat.getTimeInstance(DateFormat.SHORT)
-        val date = DateFormat.getDateInstance(DateFormat.MEDIUM)
-        val name = prefs.name
-
-        findViewById<TextView>(R.id.greeting).text =
-            if (name.isEmpty()) getString(R.string.greeting) else getString(R.string.greeting_name, name)
-
-        if (prefs.checkedInToday()) {
-            okButton.text = getString(R.string.thank_you)
-            status.text = getString(R.string.status_done, time.format(Date(prefs.lastCheckInMillis)))
-        } else {
-            okButton.text = getString(R.string.im_ok)
-            status.text = when {
-                prefs.isPaused -> getString(R.string.status_paused, date.format(Date(prefs.pausedUntilMillis)))
-                else -> getString(R.string.status_not_yet)
-            }
+        val checkedIn = prefs.checkedInToday()
+        val delivery = when {
+            prefs.links.isEmpty() -> MainScreen.Delivery.NOT_SET_UP
+            prefs.pendingLinks.isNotEmpty() -> MainScreen.Delivery.WAITING
+            checkedIn && prefs.lastDeliveredMillis >= prefs.lastCheckInMillis -> MainScreen.Delivery.SENT
+            else -> MainScreen.Delivery.NONE
         }
-
-        delivery.text = when {
-            prefs.links.isEmpty() -> getString(R.string.delivery_not_set_up)
-            prefs.pendingLinks.isNotEmpty() -> getString(R.string.delivery_waiting)
-            prefs.checkedInToday() && prefs.lastDeliveredMillis >= prefs.lastCheckInMillis ->
-                getString(R.string.delivery_sent)
-            else -> ""
-        }
+        val reminderAt = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, prefs.reminderHour)
+            set(Calendar.MINUTE, prefs.reminderMinute)
+        }.timeInMillis
+        screen.bind(
+            MainScreen.State(
+                name = prefs.name,
+                now = System.currentTimeMillis(),
+                checkedInAt = if (checkedIn) prefs.lastCheckInMillis else null,
+                pausedUntil = if (prefs.isPaused) prefs.pausedUntilMillis else null,
+                reminderAt = reminderAt,
+                delivery = delivery,
+            ),
+        )
     }
 }
