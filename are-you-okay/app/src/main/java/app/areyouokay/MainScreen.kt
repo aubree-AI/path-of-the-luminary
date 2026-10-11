@@ -33,7 +33,7 @@ class MainScreen(private val root: View) {
     private val okIcon: ImageView = root.findViewById(R.id.ok_icon)
     private val okLabel: TextView = root.findViewById(R.id.ok_label)
     private val okSub: TextView = root.findViewById(R.id.ok_sub)
-    private val statusCard: View = root.findViewById(R.id.status_card)
+    val statusCard: View = root.findViewById(R.id.status_card)
     private val statusIcon: ImageView = root.findViewById(R.id.status_icon)
     private val statusText: TextView = root.findViewById(R.id.status_text)
 
@@ -81,7 +81,7 @@ class MainScreen(private val root: View) {
 
         when {
             s.delivery == Delivery.NOT_SET_UP ->
-                status(Tone.WARNING, R.drawable.ic_warning, ctx.getString(R.string.delivery_not_set_up))
+                status(Tone.WARNING, R.drawable.ic_warning, ctx.getString(R.string.delivery_not_set_up), tappable = true)
             s.delivery == Delivery.WAITING ->
                 status(Tone.WARNING, R.drawable.ic_clock, ctx.getString(R.string.delivery_waiting))
             s.delivery == Delivery.SENT ->
@@ -96,8 +96,11 @@ class MainScreen(private val root: View) {
 
     private enum class Tone { OK, WARNING, NEUTRAL }
 
-    private fun status(tone: Tone, icon: Int, text: String) {
+    private fun status(tone: Tone, icon: Int, text: String, tappable: Boolean = false) {
         statusCard.visibility = View.VISIBLE
+        // Only the "finish setup" card does something when tapped.
+        statusCard.isClickable = tappable
+        statusCard.isFocusable = tappable
         statusCard.setBackgroundResource(
             when (tone) {
                 Tone.OK -> R.drawable.status_ok

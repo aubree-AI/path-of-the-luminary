@@ -64,11 +64,14 @@ class ScreensTest {
         paparazzi.snapshot(main(state()))
     }
 
-    private fun settingsView(paused: Boolean = false, batteryOk: Boolean = false): View {
+    private val goodLinks = "https://hc-ping.com/5f2e1c3a-8b7d-4e21-9a6f-2c4d8e1b7a90\nhttps://ntfy.sh/mom-okay-7f3k29xq"
+
+    private fun settingsView(paused: Boolean = false, batteryOk: Boolean = false, linkText: String = goodLinks): View {
         val v = LayoutInflater.from(paparazzi.context).inflate(R.layout.activity_settings, null)
         SettingsScreen(v).apply {
             name.setText("Jean")
-            links.setText("https://hc-ping.com/5f2e1c3a-8b7d-4e21-9a6f-2c4d8e1b7a90\nhttps://ntfy.sh/mom-okay-7f3k29xq")
+            links.setText(linkText)
+            showLinks(linkText)
             bind(
                 SettingsScreen.State(
                     reminderAt = nineAm - 2 * 60_000,
@@ -84,6 +87,11 @@ class ScreensTest {
     @Test fun settings() {
         paparazzi.unsafeUpdateConfig(renderingMode = SessionParams.RenderingMode.V_SCROLL)
         paparazzi.snapshot(settingsView())
+    }
+
+    @Test fun settings_badLinks() {
+        paparazzi.unsafeUpdateConfig(renderingMode = SessionParams.RenderingMode.V_SCROLL)
+        paparazzi.snapshot(settingsView(linkText = "ntfy.sh/mom-okay\nhc-ping dot com"))
     }
 
     @Test fun settings_dark_paused() {

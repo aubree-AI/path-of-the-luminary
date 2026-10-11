@@ -29,9 +29,9 @@ class MainActivity : Activity() {
                 button.animate().scaleX(1f).scaleY(1f).setDuration(160).start()
             }.start()
         }
-        findViewById<android.view.View>(R.id.settings_button).setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
-        }
+        val openSettings = { _: android.view.View -> startActivity(Intent(this, SettingsActivity::class.java)) }
+        findViewById<android.view.View>(R.id.settings_button).setOnClickListener(openSettings)
+        screen.statusCard.setOnClickListener(openSettings)
 
         Reminders.createChannel(this)
         Reminders.scheduleNextDaily(this)

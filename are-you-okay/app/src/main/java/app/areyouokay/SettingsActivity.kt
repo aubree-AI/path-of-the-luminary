@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.NotificationManager
 import android.app.TimePickerDialog
+import android.content.ClipboardManager
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -12,6 +13,8 @@ import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.text.format.DateFormat as AndroidDateFormat
 import android.view.View
 import java.util.Calendar
@@ -27,6 +30,13 @@ class SettingsActivity : Activity() {
         screen = SettingsScreen(findViewById(android.R.id.content))
         screen.name.setText(prefs.name)
         screen.links.setText(prefs.links.joinToString("\n"))
+        screen.showLinks(screen.links.text.toString())
+        screen.links.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) = screen.showLinks(s.toString())
+        })
+        handleShare(intent)
 
         findViewById<View>(R.id.back_button).setOnClickListener { finish() }
         findViewById<View>(R.id.time_button).setOnClickListener {
@@ -44,6 +54,14 @@ class SettingsActivity : Activity() {
             prefs.pausedUntilMillis = 0L
             refresh()
         }
+        findViewById<View>(R.id.paste_button).setOnClickListener {
+            val clip = getSystemService(ClipboardManager::class.java).primaryClip
+            val text = clip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(this)?.toString().orEmpty()
+            if (!addLinks(text)) {
+                screen.testResult.visibility = View.VISIBLE
+                screen.testResult.setText(R.string.paste_nothing)
+            }
+        }
         findViewById<View>(R.id.test_button).setOnClickListener {
             save()
             sendTest()
@@ -52,6 +70,29 @@ class SettingsActivity : Activity() {
             startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, packageName))
         }
         screen.onFix(R.id.row_battery) { askBatteryExemption() }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleShare(intent)
+    }
+
+    /** "Share" from the messages app lands here with the text of the message. */
+    private fun handleShare(intent: Intent?) {
+        if (intent?.action != Intent.ACTION_SEND) return
+        addLinks(intent.getStringExtra(Intent.EXTRA_TEXT).orEmpty())
+    }
+
+    /** Adds any links found in [text] to the list. Returns false if there were none. */
+    private fun addLinks(text: String): Boolean {
+        val found = Links.extract(text)
+        if (found.isEmpty()) return false
+        val merged = (screen.links.text.toString().lines().map { it.trim() }.filter { it.isNotEmpty() } + found).distinct()
+        screen.links.setText(merged.joinToString("\n"))
+        save()
+        screen.testResult.visibility = View.VISIBLE
+        screen.testResult.setText(R.string.links_added)
+        return true
     }
 
     override fun onResume() {

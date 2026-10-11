@@ -38,10 +38,18 @@
             </intent-filter>
         </activity>
 
+        <!-- Exported only so "Share" from a messages app can hand it a link. -->
         <activity
             android:name=".SettingsActivity"
-            android:exported="false"
-            android:label="@string/settings" />
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
 
         <receiver
             android:name=".ReminderReceiver"
