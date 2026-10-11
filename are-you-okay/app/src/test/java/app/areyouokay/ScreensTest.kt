@@ -6,6 +6,7 @@ import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import com.android.ide.common.rendering.api.SessionParams
 import com.android.resources.NightMode
+import com.android.resources.ScreenOrientation
 import org.junit.Rule
 import org.junit.Test
 import java.util.Calendar
@@ -62,6 +63,19 @@ class ScreensTest {
     @Test fun main_smallPhone_largeText() {
         paparazzi.unsafeUpdateConfig(DeviceConfig.NEXUS_5.copy(fontScale = 2f))
         paparazzi.snapshot(main(state()))
+    }
+
+    @Test fun main_landscape() {
+        val p5 = DeviceConfig.PIXEL_5
+        paparazzi.unsafeUpdateConfig(
+            p5.copy(screenWidth = p5.screenHeight, screenHeight = p5.screenWidth, orientation = ScreenOrientation.LANDSCAPE),
+        )
+        paparazzi.snapshot(main(state()))
+    }
+
+    @Test fun main_tablet_done() {
+        paparazzi.unsafeUpdateConfig(DeviceConfig.PIXEL_C)
+        paparazzi.snapshot(main(state(checkedIn = true, delivery = MainScreen.Delivery.SENT)))
     }
 
     @Test fun widget() {

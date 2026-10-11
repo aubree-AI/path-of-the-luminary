@@ -37,6 +37,16 @@ class MainScreen(private val root: View) {
     private val statusIcon: ImageView = root.findViewById(R.id.status_icon)
     private val statusText: TextView = root.findViewById(R.id.status_text)
 
+    init {
+        // TalkBack: announce the big card as a button, not a generic layout.
+        okButton.accessibilityDelegate = object : View.AccessibilityDelegate() {
+            override fun onInitializeAccessibilityNodeInfo(host: View, info: android.view.accessibility.AccessibilityNodeInfo) {
+                super.onInitializeAccessibilityNodeInfo(host, info)
+                info.className = android.widget.Button::class.java.name
+            }
+        }
+    }
+
     fun bind(s: State) {
         val time = DateFormat.getTimeInstance(DateFormat.SHORT)
         date.text = SettingsScreen.shortDate(s.now)
