@@ -69,4 +69,11 @@
     <string name="link_invalid">This doesn\'t look like a link: %1$s</string>
     <string name="link_no_alert">No missed check-in alert yet. Without a Healthchecks.io link, nobody is alerted if you miss a day.</string>
     <string name="links_added">Link added. You\'re connected to your family.</string>
+
+    <string name="widget_description">A big I\'m OK button for your home screen</string>
+    <string name="shortcut_long">Tell my family I\'m OK</string>
+    <string name="confirm_title">Thank you!</string>
+    <string name="confirm_text">Your family will know you\'re okay.</string>
+    <string name="reminder_big_text">Tap I\'m OK below to let your family know you\'re okay today.</string>
+    <string name="widget_done_at">Done at %1$s</string>
 </resources>

@@ -59,6 +59,7 @@ object Reminders {
     fun onAlarm(context: Context, action: String, count: Int) {
         val prefs = Prefs(context)
         if (action == ACTION_DAILY) scheduleNextDaily(context)
+        OkWidget.updateAll(context)
         if (prefs.isPaused || prefs.checkedInToday()) return
 
         showNotification(context, isRepeat = count > 0)
@@ -81,17 +82,15 @@ object Reminders {
             Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
-        val checkIn = PendingIntent.getBroadcast(
-            context, 2,
-            Intent(context, ReminderReceiver::class.java).setAction(ACTION_CHECK_IN),
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
-        )
+        val checkIn = checkInIntent(context)
         val okAction = Notification.Action.Builder(null, context.getString(R.string.im_ok), checkIn).build()
 
         val notification = Notification.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(context.getString(if (isRepeat) R.string.reminder_title_repeat else R.string.reminder_title))
             .setContentText(context.getString(R.string.reminder_text))
+            .setStyle(Notification.BigTextStyle().bigText(context.getString(R.string.reminder_big_text)))
+            .setColor(context.getColor(R.color.ok_green))
             .setCategory(Notification.CATEGORY_REMINDER)
             .setVisibility(Notification.VISIBILITY_PUBLIC)
             .setContentIntent(open)
@@ -101,6 +100,27 @@ object Reminders {
 
         context.getSystemService(NotificationManager::class.java).notify(NOTIFICATION_ID, notification)
     }
+
+    /** Shown briefly after checking in from the notification or widget, so the tap feels answered. */
+    fun showThankYou(context: Context) {
+        val notification = Notification.Builder(context, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setColor(context.getColor(R.color.ok_green))
+            .setContentTitle(context.getString(R.string.confirm_title))
+            .setContentText(context.getString(R.string.confirm_text))
+            .setOnlyAlertOnce(true)
+            .setTimeoutAfter(15_000)
+            .setAutoCancel(true)
+            .build()
+        context.getSystemService(NotificationManager::class.java).notify(NOTIFICATION_ID, notification)
+    }
+
+    /** Checks in without opening the app (notification button, home-screen widget). */
+    fun checkInIntent(context: Context): PendingIntent = PendingIntent.getBroadcast(
+        context, 2,
+        Intent(context, ReminderReceiver::class.java).setAction(ACTION_CHECK_IN),
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+    )
 
     private fun alarmIntent(context: Context, action: String, count: Int): PendingIntent {
         val intent = Intent(context, ReminderReceiver::class.java)

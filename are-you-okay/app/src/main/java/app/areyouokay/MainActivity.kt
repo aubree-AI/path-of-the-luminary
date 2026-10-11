@@ -11,6 +11,10 @@ import java.util.Calendar
 
 /** The whole app for the person checking in: one big button. */
 class MainActivity : Activity() {
+    companion object {
+        const val ACTION_SHORTCUT = "app.areyouokay.CHECK_IN_SHORTCUT"
+    }
+
     private lateinit var prefs: Prefs
     private lateinit var screen: MainScreen
 
@@ -42,8 +46,18 @@ class MainActivity : Activity() {
         }
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+    }
+
     override fun onResume() {
         super.onResume()
+        // Long-press app icon > "I'm OK" lands here.
+        if (intent?.action == ACTION_SHORTCUT) {
+            intent.action = null
+            if (!prefs.checkedInToday()) CheckIn.record(this)
+        }
         refresh()
     }
 

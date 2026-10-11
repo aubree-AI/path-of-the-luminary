@@ -64,6 +64,31 @@ class ScreensTest {
         paparazzi.snapshot(main(state()))
     }
 
+    @Test fun widget() {
+        val dp = paparazzi.context.resources.displayMetrics.density
+        val row = android.widget.LinearLayout(paparazzi.context).apply {
+            setPadding((16 * dp).toInt(), (24 * dp).toInt(), (16 * dp).toInt(), (24 * dp).toInt())
+            setBackgroundColor(0xFF5C6B7A.toInt()) // stands in for a wallpaper
+        }
+        val todo = LayoutInflater.from(paparazzi.context).inflate(R.layout.widget_ok, row, false)
+        val done = LayoutInflater.from(paparazzi.context).inflate(R.layout.widget_ok, row, false).apply {
+            setBackgroundResource(R.drawable.widget_done_bg)
+            findViewById<android.widget.ImageView>(R.id.widget_icon).setImageResource(R.drawable.ic_check_done)
+            findViewById<android.widget.TextView>(R.id.widget_label).apply {
+                setText(R.string.thank_you)
+                setTextColor(context.getColor(R.color.on_done_container))
+            }
+            findViewById<android.widget.TextView>(R.id.widget_sub).apply {
+                text = context.getString(R.string.widget_done_at, "9:02 AM")
+                visibility = View.VISIBLE
+            }
+        }
+        listOf(todo, done).forEach {
+            row.addView(it, android.widget.LinearLayout.LayoutParams(0, (150 * dp).toInt(), 1f).apply { setMargins((8 * dp).toInt(), 0, (8 * dp).toInt(), 0) })
+        }
+        paparazzi.snapshot(row)
+    }
+
     private val goodLinks = "https://hc-ping.com/5f2e1c3a-8b7d-4e21-9a6f-2c4d8e1b7a90\nhttps://ntfy.sh/mom-okay-7f3k29xq"
 
     private fun settingsView(paused: Boolean = false, batteryOk: Boolean = false, linkText: String = goodLinks): View {

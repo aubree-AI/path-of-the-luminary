@@ -17,6 +17,7 @@ object CheckIn {
         prefs.pausedUntilMillis = 0L
 
         Reminders.dismissForToday(context)
+        OkWidget.updateAll(context)
 
         val links = prefs.links
         if (links.isNotEmpty()) {

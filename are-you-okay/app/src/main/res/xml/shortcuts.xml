@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutId="check_in"
+        android:shortcutLongLabel="@string/shortcut_long"
+        android:shortcutShortLabel="@string/im_ok">
+        <intent
+            android:action="app.areyouokay.CHECK_IN_SHORTCUT"
+            android:targetClass="app.areyouokay.MainActivity"
+            android:targetPackage="app.areyouokay" />
+    </shortcut>
+</shortcuts>
