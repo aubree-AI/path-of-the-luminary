@@ -8,7 +8,8 @@ import android.content.Context
 import android.content.Intent
 import android.app.Notification
 import android.os.Build
-import java.util.Calendar
+import java.time.LocalDate
+import java.time.ZonedDateTime
 
 /**
  * Daily reminder: one notification at the chosen time, then repeats every
@@ -27,7 +28,9 @@ object Reminders {
     const val ACTION_DAILY = "app.areyouokay.DAILY"
     const val ACTION_REPEAT = "app.areyouokay.REPEAT"
     const val ACTION_CHECK_IN = "app.areyouokay.CHECK_IN"
+    const val ACTION_MIDNIGHT = "app.areyouokay.MIDNIGHT"
     const val EXTRA_COUNT = "count"
+    const val EXTRA_DAY = "day"
 
     fun createChannel(context: Context) {
         val channel = NotificationChannel(
@@ -45,27 +48,37 @@ object Reminders {
     /** (Re)schedule the next daily reminder. Safe to call any time. */
     fun scheduleNextDaily(context: Context) {
         val prefs = Prefs(context)
-        val next = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, prefs.reminderHour)
-            set(Calendar.MINUTE, prefs.reminderMinute)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-            if (timeInMillis <= System.currentTimeMillis()) add(Calendar.DAY_OF_YEAR, 1)
-        }
-        setAlarm(context, next.timeInMillis, alarmIntent(context, ACTION_DAILY, 0))
+        val now = ZonedDateTime.now()
+        val next = Schedule.nextReminder(now, prefs.reminderHour, prefs.reminderMinute)
+        setAlarm(context, next.toInstant().toEpochMilli(), alarmIntent(context, ACTION_DAILY, 0))
+
+        // At midnight the widget goes back to "I'm OK". Not a wake-up alarm: nobody sees
+        // the widget while the phone sleeps, so it can wait until the screen comes on.
+        context.getSystemService(AlarmManager::class.java).set(
+            AlarmManager.RTC,
+            Schedule.nextMidnight(now).toInstant().toEpochMilli(),
+            alarmIntent(context, ACTION_MIDNIGHT, 0),
+        )
     }
 
     /** Called by [ReminderReceiver] when an alarm fires. */
-    fun onAlarm(context: Context, action: String, count: Int) {
+    fun onAlarm(context: Context, action: String, count: Int, reminderDay: Long) {
         val prefs = Prefs(context)
-        if (action == ACTION_DAILY) scheduleNextDaily(context)
         OkWidget.updateAll(context)
+        if (action == ACTION_MIDNIGHT) {
+            scheduleNextDaily(context)
+            return
+        }
+        if (action == ACTION_DAILY) scheduleNextDaily(context)
+        val today = LocalDate.now().toEpochDay()
+        // A late-evening reminder's repeats must not spill into the next day.
+        if (action == ACTION_REPEAT && reminderDay != today) return
         if (prefs.isPaused || prefs.checkedInToday()) return
 
         showNotification(context, isRepeat = count > 0)
         if (count < EXTRA_REMINDERS) {
             val at = System.currentTimeMillis() + REPEAT_MINUTES * 60_000L
-            setAlarm(context, at, alarmIntent(context, ACTION_REPEAT, count + 1))
+            setAlarm(context, at, alarmIntent(context, ACTION_REPEAT, count + 1, today))
         }
     }
 
@@ -122,11 +135,16 @@ object Reminders {
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
     )
 
-    private fun alarmIntent(context: Context, action: String, count: Int): PendingIntent {
+    private fun alarmIntent(context: Context, action: String, count: Int, day: Long = 0): PendingIntent {
         val intent = Intent(context, ReminderReceiver::class.java)
             .setAction(action)
             .putExtra(EXTRA_COUNT, count)
-        val requestCode = if (action == ACTION_DAILY) 0 else 1
+            .putExtra(EXTRA_DAY, day)
+        val requestCode = when (action) {
+            ACTION_DAILY -> 0
+            ACTION_REPEAT -> 1
+            else -> 4
+        }
         return PendingIntent.getBroadcast(
             context, requestCode, intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,

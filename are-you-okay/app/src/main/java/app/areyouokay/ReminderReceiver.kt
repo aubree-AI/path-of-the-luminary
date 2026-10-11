@@ -11,8 +11,12 @@ class ReminderReceiver : BroadcastReceiver() {
                 CheckIn.record(context)
                 Reminders.showThankYou(context)
             }
-            Reminders.ACTION_DAILY, Reminders.ACTION_REPEAT ->
-                Reminders.onAlarm(context, action, intent.getIntExtra(Reminders.EXTRA_COUNT, 0))
+            Reminders.ACTION_DAILY, Reminders.ACTION_REPEAT, Reminders.ACTION_MIDNIGHT ->
+                Reminders.onAlarm(
+                    context, action,
+                    intent.getIntExtra(Reminders.EXTRA_COUNT, 0),
+                    intent.getLongExtra(Reminders.EXTRA_DAY, 0),
+                )
         }
     }
 }

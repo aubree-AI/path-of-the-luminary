@@ -23,8 +23,10 @@ object CheckIn {
         if (links.isNotEmpty()) {
             val who = prefs.name.ifEmpty { "Your family member" }
             val time = DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(now))
-            prefs.pendingMessage = "$who checked in: I'm OK ($time)"
-            prefs.pendingLinks = links.toSet()
+            synchronized(this) {
+                prefs.pendingMessage = "$who checked in: I'm OK ($time)"
+                prefs.pendingLinks = links.toSet()
+            }
             SendJobService.schedule(context)
         }
     }

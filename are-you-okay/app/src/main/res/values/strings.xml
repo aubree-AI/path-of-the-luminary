@@ -76,4 +76,10 @@
     <string name="confirm_text">Your family will know you\'re okay.</string>
     <string name="reminder_big_text">Tap I\'m OK below to let your family know you\'re okay today.</string>
     <string name="widget_done_at">Done at %1$s</string>
+
+    <string name="share_confirm_title">Add this link?</string>
+    <string name="share_confirm_text">Your check-ins will be sent to:\n%1$s\n\nOnly say yes if your family sent you this link.</string>
+    <string name="share_confirm_yes">Yes, add it</string>
+    <string name="share_confirm_no">No</string>
+    <string name="share_no_link">That message didn\'t contain a link.</string>
 </resources>

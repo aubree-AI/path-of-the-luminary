@@ -3,6 +3,7 @@ package app.areyouokay
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.NotificationManager
 import android.app.TimePickerDialog
 import android.content.ClipboardManager
@@ -77,10 +78,26 @@ class SettingsActivity : Activity() {
         handleShare(intent)
     }
 
-    /** "Share" from the messages app lands here with the text of the message. */
+    /**
+     * "Share" from the messages app lands here with the text of the message. Any app can
+     * share to us, so ask before adding: a link decides who receives her check-ins.
+     */
     private fun handleShare(intent: Intent?) {
         if (intent?.action != Intent.ACTION_SEND) return
-        addLinks(intent.getStringExtra(Intent.EXTRA_TEXT).orEmpty())
+        val text = intent.getStringExtra(Intent.EXTRA_TEXT).orEmpty()
+        intent.action = null
+        val found = Links.extract(text)
+        if (found.isEmpty()) {
+            screen.testResult.visibility = View.VISIBLE
+            screen.testResult.setText(R.string.share_no_link)
+            return
+        }
+        AlertDialog.Builder(this)
+            .setTitle(R.string.share_confirm_title)
+            .setMessage(getString(R.string.share_confirm_text, found.joinToString("\n") { "• " + Links.host(it) }))
+            .setPositiveButton(R.string.share_confirm_yes) { _, _ -> addLinks(text) }
+            .setNegativeButton(R.string.share_confirm_no, null)
+            .show()
     }
 
     /** Adds any links found in [text] to the list. Returns false if there were none. */
@@ -107,7 +124,9 @@ class SettingsActivity : Activity() {
 
     private fun save() {
         prefs.name = screen.name.text.toString()
-        prefs.links = screen.links.text.toString().lines()
+        // "ntfy.sh/mom" becomes "https://ntfy.sh/mom"; anything unrecognisable is kept so it can be fixed.
+        prefs.links = screen.links.text.toString().lines().map { it.trim() }.filter { it.isNotEmpty() }
+            .map { Links.normalize(it) ?: it }.distinct()
     }
 
     private fun pause(days: Int) {

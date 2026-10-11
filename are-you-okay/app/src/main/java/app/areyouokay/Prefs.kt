@@ -1,8 +1,6 @@
 package app.areyouokay
 
 import android.content.Context
-import java.time.Instant
-import java.time.LocalDate
 import java.time.ZoneId
 
 /** All app state lives in one small SharedPreferences file. Nothing leaves the phone except check-in messages. */
@@ -52,8 +50,6 @@ class Prefs(context: Context) {
 
     fun checkedInToday(): Boolean {
         val last = lastCheckInMillis
-        if (last == 0L) return false
-        val zone = ZoneId.systemDefault()
-        return Instant.ofEpochMilli(last).atZone(zone).toLocalDate() == LocalDate.now(zone)
+        return last != 0L && Schedule.isSameDay(last, System.currentTimeMillis(), ZoneId.systemDefault())
     }
 }
