@@ -2,6 +2,14 @@
 
 Every change to the canonical text, with the reasoning. History is never rewritten; corrections are new entries. Format: date, version, proposal reference, what changed, why, who approved, adversarial review summary. Entries before the LIP process existed say so.
 
+## Two steward proposals filed (2026-10-14, no text version change)
+
+- **What changed:** two Luminary Improvement Proposals opened in `governance/lips/`, both Class B, both open for comment until 2026-10-28. LIP-0012 (purpose through passion, in service of others) would add text to the Purpose article and is decided after LIP-0003, which rewrites the same paragraph. LIP-0013 (helping people regain their footing) would add text to the Love article. Each records the steward's original wording verbatim as an alternative beside a recommended revision, and a Layer 2 alternative that leaves the Constitution unchanged. The constitutional text is unchanged; neither principle is ratified.
+- **Why:** the Luminary Life website is being redesigned around both ideas. Shown next to the Constitution without going through the process, they would read as constitutional. Both proposals name the conflict of interest in a steward organization proposing principles its own marketing uses, and ask reviewers to test for it.
+- **Who approved:** the founding steward (Luminary Life), as the filer; nothing in them is decided. Both were drafted with an AI model, disclosed in each proposal.
+- **Adversarial review:** none yet. Both proposals list it as pending. Filing two steward proposals while earlier ones are undecided sits uneasily with the one-open-LIP rule in `CONTRIBUTING.md`; LIP-0012 says so and says what the steward should do if commenters object.
+- **Generated files:** the two proposals were added to the source bundle in the website repository, `proposals.open` in `spec/constitution.json` gained `LIP-0012` and `LIP-0013`, and `npm run constitution:checksums` regenerated the inline hashes, `spec/constitution.yaml`, `spec/checksums.sha256`, and `llms-full.txt`. `llms.txt` and the `/read` index now list proposals through LIP-0013. The public repository carries the exported result.
+
 ## 1.0.2-draft (2026-09-13)
 
 - **Proposal:** none required. Layer 2 corrections of false statements of fact and one safety fix, shipped under the rule in `GOVERNANCE.md` that security and safety fixes may ship immediately with the reasoning published afterward. The constitutional text (the four questions, the center statement, the derived principles) is unchanged. Everything the reviews asked to change in that text is a proposal, listed in the next entry, not a change.

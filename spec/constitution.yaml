@@ -64,6 +64,8 @@ proposals:
     - LIP-0009
     - LIP-0010
     - LIP-0011
+    - LIP-0012
+    - LIP-0013
 checksums: https://constitution.luminarylife.ai/spec/checksums.sha256
 checksums_sha256:
   CONSTITUTION.md: b0a24019d3817bb88db11e7b5eb8bafdc33001d58e6942e4c183df75bcba2f62
@@ -76,7 +78,7 @@ checksums_sha256:
   evaluation/evaluation-prompt.txt: 5d83b48dcac8ccd90e0a0bde903b10b4c99e399607119e011f0b743044c43d81
   evaluation/review-prompt-v1.txt: ec168989aa1557ad75a2ebca6ab86f9a19b2e40bb086b86fe6c8d92d204e1d9c
   evaluation/review-prompt-v2.txt: ea51e75d055df9220ba5e3f92d8cbacad8a833b08ee81d1214031e35d07d5276
-  governance/CHANGELOG.md: 87af098d660a9dedb9b182922c1051dc644f2e57a1b18902ca9b1852eea3b969
+  governance/CHANGELOG.md: 04e7eeea33bf8ccf25517b4b7011344bbbb2b4380026c064b1c8e503df58a4e4
   governance/FORK-REGISTRY.md: ddb251fb5d894d888634ef64e053b45daa1b87f07602b0673a7828aebc962f02
   governance/FORKS.md: 2622c5657a9dd708ef72cf932ae0b0e292286794b36ee8cc587ace13ac919d85
   governance/GITHUB_PROTECTION.md: 64e75865e4dc15012ef37d154692f6a987bf897c464cf2095000ce3d0984351f
@@ -98,6 +100,8 @@ checksums_sha256:
   governance/lips/LIP-0009-governance-independence-and-sunset.md: 5ea33adb45c479967b9b055ec64072af4b2a6dc1d6d7b402a9a73de84efe33a7
   governance/lips/LIP-0010-the-invariant-veto.md: ec11027a8b5633b3eb06c5ebedb9f0cfee27099288747f74bd99e2e0da8e9629
   governance/lips/LIP-0011-provenance-protocol.md: e17d5bd0100169f8e48a841db67a9a7aa16c3a80889a7acd87efbb7f288a33e3
+  governance/lips/LIP-0012-purpose-through-passion-in-service.md: 5e6b9e43a273d0387adfbfb60cde25c3259474de05f0067aac36e14e6ecbf9e1
+  governance/lips/LIP-0013-helping-people-regain-their-footing.md: c6ce8e71aac46da8d11d39057e92c5142b8c9e6366ba3e1114e6b6256be4d51a
 checksums_note: SHA-256 of every canonical file except spec/constitution.json and spec/constitution.yaml, which cannot contain their own hashes; those two are in the checksum file
 verification:
   proves: the fetched bytes agree with the checksum manifest served by the same origin at the version named here

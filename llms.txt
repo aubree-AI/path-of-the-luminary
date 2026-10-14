@@ -24,7 +24,7 @@ Everything as one HTML page: https://constitution.luminarylife.ai/read
 - [Forks](https://constitution.luminarylife.ai/read/forks): forks are experiments, not enemies
 - [Stewardship](https://constitution.luminarylife.ai/read/stewardship): current stewards, funding, signing, licensing
 - [Changelog](https://constitution.luminarylife.ai/read/changelog): every change with reasoning
-- Open proposals (LIPs): https://constitution.luminarylife.ai/read/lip-0001 through /read/lip-0011, listed on https://constitution.luminarylife.ai/read; comment on the matching issue at https://github.com/aubree-AI/path-of-the-luminary/issues?q=label%3Alip
+- Open proposals (LIPs): https://constitution.luminarylife.ai/read/lip-0001 through /read/lip-0013, listed on https://constitution.luminarylife.ai/read; comment on the matching issue at https://github.com/aubree-AI/path-of-the-luminary/issues?q=label%3Alip
 
 ## Evaluate it
 
