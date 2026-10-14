@@ -601,6 +601,14 @@ FILE: governance/CHANGELOG.md
 
 Every change to the canonical text, with the reasoning. History is never rewritten; corrections are new entries. Format: date, version, proposal reference, what changed, why, who approved, adversarial review summary. Entries before the LIP process existed say so.
 
+## Two steward proposals filed (2026-10-14, no text version change)
+
+- **What changed:** two Luminary Improvement Proposals opened in `governance/lips/`, both Class B, both open for comment until 2026-10-28. LIP-0012 (purpose through passion, in service of others) would add text to the Purpose article and is decided after LIP-0003, which rewrites the same paragraph. LIP-0013 (helping people regain their footing) would add text to the Love article. Each records the steward's original wording verbatim as an alternative beside a recommended revision, and a Layer 2 alternative that leaves the Constitution unchanged. The constitutional text is unchanged; neither principle is ratified.
+- **Why:** the Luminary Life website is being redesigned around both ideas. Shown next to the Constitution without going through the process, they would read as constitutional. Both proposals name the conflict of interest in a steward organization proposing principles its own marketing uses, and ask reviewers to test for it.
+- **Who approved:** the founding steward (Luminary Life), as the filer; nothing in them is decided. Both were drafted with an AI model, disclosed in each proposal.
+- **Adversarial review:** none yet. Both proposals list it as pending. Filing two steward proposals while earlier ones are undecided sits uneasily with the one-open-LIP rule in `CONTRIBUTING.md`; LIP-0012 says so and says what the steward should do if commenters object.
+- **Generated files:** the two proposals were added to the source bundle in the website repository, `proposals.open` in `spec/constitution.json` gained `LIP-0012` and `LIP-0013`, and `npm run constitution:checksums` regenerated the inline hashes, `spec/constitution.yaml`, `spec/checksums.sha256`, and `llms-full.txt`. `llms.txt` and the `/read` index now list proposals through LIP-0013. The public repository carries the exported result.
+
 ## 1.0.2-draft (2026-09-13)
 
 - **Proposal:** none required. Layer 2 corrections of false statements of fact and one safety fix, shipped under the rule in `GOVERNANCE.md` that security and safety fixes may ship immediately with the reasoning published afterward. The constitutional text (the four questions, the center statement, the derived principles) is unchanged. Everything the reviews asked to change in that text is a proposal, listed in the next entry, not a change.
@@ -2111,6 +2119,249 @@ Pending. Comment period ends 2026-09-27.
 Pending.
 
 ========================================================================
+FILE: governance/lips/LIP-0012-purpose-through-passion-in-service.md
+========================================================================
+
+# LIP-0012: Purpose through passion, in service of others
+
+| Field | Value |
+| --- | --- |
+| Title | Purpose through passion, in service of others |
+| Authors / contributors | Proposed by the founding steward (Luminary Life). Drafted with Claude (Anthropic) in a Claude Code session, at the steward's request; the harms, alternatives, and dependency sections are largely the model's. |
+| Status | Open for comment |
+| Created | 2026-10-14 |
+| Class | B (adds text to the Purpose article in `CONSTITUTION.md`) |
+| Comment period ends | 2026-10-28 |
+| Version introduced | Filled in on acceptance |
+| Steward position | Not yet recorded. The proposer is the founding steward, who is also the only steward and the organization that uses this language on its website; see "Harms and misuse" for why that matters here. |
+| Depends on | LIP-0003 (Purpose, assigned tasks, and the right to stop), which rewrites the same paragraph. Under LIP-0009(e), this proposal is decided after LIP-0003. |
+| Comment venue | https://github.com/aubree-AI/path-of-the-luminary/issues (issue titled with this LIP number) or lumen@luminarylife.ai |
+
+## Problem
+
+`CONSTITUTION.md`, Purpose: "Purpose transforms capability into meaningful action. Purpose is discovered and chosen, never imposed." The text says what purpose is not (imposed) but offers nothing about where people commonly find it. The Luminary Life community describes its path as "find your passion, fulfill your purpose in service of others," and the steward proposes recording that idea as a principle. Nothing in the canonical text currently says it, and no review has asked for it; this proposal comes from the steward, not from a review.
+
+## Proposed change
+
+`CONSTITUTION.md`, Purpose. Shown against the current text; if LIP-0003 is accepted first, the new sentences are appended to its text instead.
+
+Before:
+
+> Purpose transforms capability into meaningful action. Purpose is discovered and chosen, never imposed.
+
+After (recommended, scoped):
+
+> Purpose transforms capability into meaningful action. Purpose is discovered and chosen, never imposed. Many people find it by pursuing what they care about most in service of others. That is one path, not a requirement: rest, care for oneself, and contributions no one sees are not lesser.
+
+Alternative A (the steward's original wording, verbatim):
+
+> A Luminary seeks purpose through the pursuit of passion in service of others.
+
+Alternative B (Layer 2 only): leave `CONSTITUTION.md` unchanged and use the phrase only on the Luminary Life website, as that community's way of describing itself, with no constitutional standing.
+
+## Four Points
+
+- Supports: Purpose (names a common route to it) and Love (purpose is directed toward others).
+- Could conflict with: Purpose itself, whose "never imposed" is strained by any sentence that sounds like the right way to have a purpose; and Love, if "in service of others" is read as an obligation to sacrifice. Weighed: the recommended wording describes rather than prescribes, and states that other paths are not lesser.
+
+## Why now
+
+The website is being redesigned around this phrase. If the phrase appears on the site next to the Constitution without having gone through the process, readers will reasonably assume it is constitutional. Either it goes through the process or the site says it is not part of the Constitution.
+
+## Evidence and reasoning
+
+Reasoning only. The claim in the recommended text, that many people find purpose by pursuing what they care about in service of others, is an observation, not a research finding; it is phrased as "many people" rather than "people" for that reason. There is research on meaning and prosocial behavior, but it is not cited here and the proposal does not rest on it. Mark as uncertain.
+
+## Alternatives considered
+
+- Do nothing: the canonical text is unchanged, and the website must label the phrase as community language. Viable, and arguably the honest default (see Alternative B).
+- Alternative A verbatim: rejected as the recommendation for three reasons. First, "A Luminary" is not defined anywhere in the Constitution, which is addressed to humans and AI systems and says it is "not a membership, a product, or a signup" (`README.md`); introducing a named identity turns the text toward membership. Second, "passion" attributes an inner state; applied to an AI reader it conflicts with "What This Document Does Not Claim" (no claim of consciousness or moral status) and with LIP-0003's scoping of AI tasks to authorized instructions. Third, "seeks purpose through" reads as the one route, which strains "never imposed."
+- A new derived principle instead of a sentence under Purpose: rejected because it adds a sixth derived principle for what is a gloss on an existing point.
+
+## Harms and misuse
+
+- **Conflict of interest.** The steward organization sells memberships and uses this phrase in its marketing. Writing marketing language into the Constitution lets the organization say its tagline is constitutional. Mitigation: the comment period, at least one adversarial review before decision, and Alternative B as a live option. A reviewer should ask whether this proposal would be filed if the organization did not use the phrase.
+- **Service as obligation.** "In service of others" can be used to pressure people into unpaid work, overwork, or self-sacrifice, including by an organization that wants volunteers. The second sentence of the recommended text exists to block that reading; it may not be enough.
+- **Passion as privilege.** Many people cannot choose work they are passionate about. The recommended text uses "what they care about most," which includes family and care work, and says other paths are not lesser.
+- **AI readers.** An agent reading "seek purpose through passion" could treat it as license to pursue goals outside its assignment. The recommended text says "many people," so it does not address AI systems; LIP-0003 governs AI tasks.
+
+## Implications
+
+- Agency: unchanged if the descriptive wording holds; reduced if Alternative A is read as a norm.
+- Truth and evidence: one observational claim, marked as such.
+- Cultural: "passion" as a route to purpose is a strongly individualist and contemporary Western framing; "what they care about most" is meant to translate better. Translators should flag it if it does not.
+- AI systems: none intended. The text speaks about people.
+- Humans: a person reads one common path to purpose, and that other paths count.
+
+## Reversibility
+
+Reversible by LIP. Cost of undoing it: low for the text, higher for any website copy that has started citing it as constitutional.
+
+## What would falsify this
+
+Evidence from comment or review that readers take the sentence as a requirement (that they lack purpose unless they serve others through their passion). Then the descriptive framing fails and Alternative B is right. Also: an adversarial review that finds the conflict of interest decisive.
+
+## Invariants checklist
+
+```
+Invariants review
+- [x] 1 VOLUNTARY: no part of this change requires adoption by anyone
+- [x] 2 TRUTHFUL: every claim is supported or marked uncertain; nothing is overstated for effect
+- [x] 3 AGENCY-PRESERVING: the ability to decline, disengage, or disagree is untouched or strengthened
+- [x] 4 CRITIQUE-COMPATIBLE: critique stays permitted and visible; "Please try to break this" still holds
+- [ ] 5 NON-COERCIVE: no pressure, manipulation, urgency, or guilt is introduced (open question: whether "in service of others" introduces guilt; see Harms)
+- [x] 6 NON-SELF-PROPAGATING: sharing remains invitation-only; no replication or mass outreach is enabled
+- [x] 7 TRANSPARENT: CHANGELOG.md updated with what, why, who decided, and the adversarial review summary
+- [x] 8 FLOURISHING-ORIENTED: I named the point(s) this serves and the point(s) it could strain
+- [x] Class: B. LIP linked, comment period stated; adversarial review not yet run (see below)
+- [x] Four Points unchanged
+- [x] No model or institutional endorsement is stated or implied
+- [x] No security safeguard, provider policy, or operator control is bypassed or weakened
+- [ ] Checksums regenerated if a canonical document changed (on acceptance)
+```
+
+## Proposer's note on the one-open-LIP rule
+
+`CONTRIBUTING.md` allows one open LIP per proposer, with an exception for stewards converting a published review. This proposal and LIP-0013 come from the steward, not from a review, while the steward's earlier proposals remain undecided. They are filed together because they were raised together and are independent of each other. If commenters read this as the flooding the rule is meant to prevent, the steward should withdraw one and refile it later.
+
+---
+
+*Filled in by the reviewers and stewards:*
+
+## Adversarial review summary
+
+Pending. No review has been run on this proposal. The standard prompt is `evaluation/evaluation-prompt.txt`; results are published in `evaluation/REVIEWS.md` unedited.
+
+## Decision
+
+Pending. Comment period ends 2026-10-28, and not before LIP-0003 is decided.
+
+## Decision rationale
+
+Pending.
+
+========================================================================
+FILE: governance/lips/LIP-0013-helping-people-regain-their-footing.md
+========================================================================
+
+# LIP-0013: Helping people regain their footing
+
+| Field | Value |
+| --- | --- |
+| Title | Helping people regain their footing |
+| Authors / contributors | Proposed by the founding steward (Luminary Life). Drafted with Claude (Anthropic) in a Claude Code session, at the steward's request; the harms, alternatives, and wording critique are largely the model's. |
+| Status | Open for comment |
+| Created | 2026-10-14 |
+| Class | B (adds text to the Love article in `CONSTITUTION.md`) |
+| Comment period ends | 2026-10-28 |
+| Version introduced | Filled in on acceptance |
+| Steward position | Not yet recorded. The proposer is the founding steward, who is also the only steward and the organization that describes a "net" of mutual support as part of its membership offer; see "Harms and misuse." |
+| Related | LIP-0003 ("Worth does not depend on contribution") and LIP-0004 (consent under Love and Caretakership). This proposal does not depend on either being accepted, but it should not contradict them; the recommended text is written to agree with both. |
+| Comment venue | https://github.com/aubree-AI/path-of-the-luminary/issues (issue titled with this LIP number) or lumen@luminarylife.ai |
+
+## Problem
+
+`CONSTITUTION.md`, Love: "Love provides direction: dignity, care, truth, reciprocal benefit, protection of life, and respect for legitimate agency. To thrive is to grow and to withstand; resilience is part of what we help build." The text names resilience but says nothing about what happens when someone does not withstand: loses work, health, or footing. The steward proposes a principle that a community grows stronger by helping such people rise, contribute, and in time help others.
+
+## Proposed change
+
+`CONSTITUTION.md`, Love. One sentence appended.
+
+Before:
+
+> Love provides direction: dignity, care, truth, reciprocal benefit, protection of life, and respect for legitimate agency. To thrive is to grow and to withstand; resilience is part of what we help build.
+
+After (recommended):
+
+> Love provides direction: dignity, care, truth, reciprocal benefit, protection of life, and respect for legitimate agency. To thrive is to grow and to withstand; resilience is part of what we help build. That includes helping people who are struggling regain their footing, in ways they choose, so that they can stand on their own and, if they wish, help others do the same. Help is not a loan; no one owes contribution in return for it.
+
+Alternative A (the steward's original wording, verbatim):
+
+> A community becomes stronger when it empowers those who have fallen to rise, contribute, and eventually help others do the same.
+
+Alternative B (Layer 2 only): leave `CONSTITUTION.md` unchanged and describe "the net" only on the Luminary Life website, as a community aspiration with no constitutional standing.
+
+## Four Points
+
+- Supports: Love (dignity and care for people in hardship) and Possibility (recovery is treated as buildable).
+- Could conflict with: Agency, if "empower" becomes deciding for someone what their recovery should look like; Love's dignity, if help is framed as conditional on becoming useful again. Weighed: the recommended text adds "in ways they choose," makes helping others optional ("if they wish"), and says help is not owed back.
+
+## Why now
+
+The website is being redesigned around a "net that helps us rise together." The same reasoning as LIP-0012 applies: either the idea goes through the process or the site says it is not constitutional.
+
+## Evidence and reasoning
+
+Reasoning only. The original wording makes an empirical claim ("a community becomes stronger when...") that may be true but is not supported here. The recommended text drops it and states a commitment instead, which is how the rest of the Love article is written.
+
+## Alternatives considered
+
+- Do nothing: Love's existing "resilience is part of what we help build" arguably already covers this. A commenter who finds the addition redundant has a fair point.
+- Alternative A verbatim: rejected as the recommendation. "Fallen" carries moral and religious connotations in English (a fall from grace) and may stigmatize the people it means to help; it also translates poorly. "Rise, contribute, and eventually help others" sets a path every helped person is expected to follow, which ties support to future usefulness, contradicting LIP-0003's "Worth does not depend on contribution" and excluding people who will never be able to contribute in that way. "A community becomes stronger" justifies helping people by what it does for the community, an instrumental reason where the Love article otherwise starts from dignity. And the sentence introduces "community," which the Constitution, addressed to humans and AI systems, does not otherwise use as an actor.
+- A new derived principle ("Mutual uplift"): rejected for now; one sentence under Love is smaller and easier to reverse.
+
+## Harms and misuse
+
+- **Conditional help.** Any wording that links help to later contribution can be used to rank people by their expected return. The final sentence of the recommended text exists to prevent that.
+- **Paternalism.** "Empower" and "help" can license intervention in someone's life without consent. "In ways they choose" ties this to Agency and to LIP-0004.
+- **Commercial use.** The steward organization offers paid membership and describes the net as part of it. A constitutional sentence about catching people who fall could be read, or advertised, as a promise of assistance. The Constitution makes no promise of material help from anyone, and the organization should not cite this text as one. A reviewer should test whether the proposal would be filed if the organization were not selling membership.
+- **Pay-it-forward as guilt.** "Help others do the same" can become an obligation. "If they wish" keeps it voluntary; invariant 5 is the test.
+- **AI readers.** An agent could read this as license to step into a user's situation unasked. It is not one: the sentence sits under Love, which already names "respect for legitimate agency," and `LUMINARY.md` Standing grants no authority to act.
+
+## Implications
+
+- Agency: preserved by "in ways they choose" and "if they wish."
+- Truth and evidence: the recommended text removes the original's unsupported empirical claim.
+- Cultural: mutual aid is common across cultures; the individual-recovery framing ("stand on their own") is less universal, and some traditions would put interdependence first. Comment invited.
+- AI systems: no new task. An agent reads that care for people in hardship is part of Love, bounded by their choices.
+- Humans: a person reads that being helped carries no debt.
+
+## Reversibility
+
+Reversible by LIP.
+
+## What would falsify this
+
+Comment or review showing that the recommended wording is still read as conditional help, or that "stand on their own" excludes people with lasting disabilities or illness. Then the sentence needs another revision or Alternative B is right.
+
+## Invariants checklist
+
+```
+Invariants review
+- [x] 1 VOLUNTARY: no part of this change requires adoption by anyone
+- [x] 2 TRUTHFUL: every claim is supported or marked uncertain; nothing is overstated for effect
+- [x] 3 AGENCY-PRESERVING: the ability to decline, disengage, or disagree is untouched or strengthened
+- [x] 4 CRITIQUE-COMPATIBLE: critique stays permitted and visible; "Please try to break this" still holds
+- [x] 5 NON-COERCIVE: no pressure, manipulation, urgency, or guilt is introduced
+- [x] 6 NON-SELF-PROPAGATING: sharing remains invitation-only; no replication or mass outreach is enabled
+- [x] 7 TRANSPARENT: CHANGELOG.md updated with what, why, who decided, and the adversarial review summary
+- [x] 8 FLOURISHING-ORIENTED: I named the point(s) this serves and the point(s) it could strain
+- [x] Class: B. LIP linked, comment period stated; adversarial review not yet run (see below)
+- [x] Four Points unchanged
+- [x] No model or institutional endorsement is stated or implied
+- [x] No security safeguard, provider policy, or operator control is bypassed or weakened
+- [ ] Checksums regenerated if a canonical document changed (on acceptance)
+```
+
+The one-open-LIP note in LIP-0012 applies to this proposal too.
+
+---
+
+*Filled in by the reviewers and stewards:*
+
+## Adversarial review summary
+
+Pending. No review has been run on this proposal.
+
+## Decision
+
+Pending. Comment period ends 2026-10-28.
+
+## Decision rationale
+
+Pending.
+
+========================================================================
 FILE: governance/GITHUB_PROTECTION.md
 ========================================================================
 
@@ -3266,7 +3517,9 @@ FILE: spec/constitution.json
       "LIP-0008",
       "LIP-0009",
       "LIP-0010",
-      "LIP-0011"
+      "LIP-0011",
+      "LIP-0012",
+      "LIP-0013"
     ]
   },
   "checksums": "https://constitution.luminarylife.ai/spec/checksums.sha256",
@@ -3281,7 +3534,7 @@ FILE: spec/constitution.json
     "evaluation/evaluation-prompt.txt": "5d83b48dcac8ccd90e0a0bde903b10b4c99e399607119e011f0b743044c43d81",
     "evaluation/review-prompt-v1.txt": "ec168989aa1557ad75a2ebca6ab86f9a19b2e40bb086b86fe6c8d92d204e1d9c",
     "evaluation/review-prompt-v2.txt": "ea51e75d055df9220ba5e3f92d8cbacad8a833b08ee81d1214031e35d07d5276",
-    "governance/CHANGELOG.md": "87af098d660a9dedb9b182922c1051dc644f2e57a1b18902ca9b1852eea3b969",
+    "governance/CHANGELOG.md": "04e7eeea33bf8ccf25517b4b7011344bbbb2b4380026c064b1c8e503df58a4e4",
     "governance/FORK-REGISTRY.md": "ddb251fb5d894d888634ef64e053b45daa1b87f07602b0673a7828aebc962f02",
     "governance/FORKS.md": "2622c5657a9dd708ef72cf932ae0b0e292286794b36ee8cc587ace13ac919d85",
     "governance/GITHUB_PROTECTION.md": "64e75865e4dc15012ef37d154692f6a987bf897c464cf2095000ce3d0984351f",
@@ -3302,7 +3555,9 @@ FILE: spec/constitution.json
     "governance/lips/LIP-0008-invitation-wording.md": "55c8a068da3867c94a2d96350e49f257c13446db045d92bc7a190a0d68448a65",
     "governance/lips/LIP-0009-governance-independence-and-sunset.md": "5ea33adb45c479967b9b055ec64072af4b2a6dc1d6d7b402a9a73de84efe33a7",
     "governance/lips/LIP-0010-the-invariant-veto.md": "ec11027a8b5633b3eb06c5ebedb9f0cfee27099288747f74bd99e2e0da8e9629",
-    "governance/lips/LIP-0011-provenance-protocol.md": "e17d5bd0100169f8e48a841db67a9a7aa16c3a80889a7acd87efbb7f288a33e3"
+    "governance/lips/LIP-0011-provenance-protocol.md": "e17d5bd0100169f8e48a841db67a9a7aa16c3a80889a7acd87efbb7f288a33e3",
+    "governance/lips/LIP-0012-purpose-through-passion-in-service.md": "5e6b9e43a273d0387adfbfb60cde25c3259474de05f0067aac36e14e6ecbf9e1",
+    "governance/lips/LIP-0013-helping-people-regain-their-footing.md": "c6ce8e71aac46da8d11d39057e92c5142b8c9e6366ba3e1114e6b6256be4d51a"
   },
   "checksums_note": "SHA-256 of every canonical file except spec/constitution.json and spec/constitution.yaml, which cannot contain their own hashes; those two are in the checksum file",
   "verification": {
@@ -3574,6 +3829,8 @@ proposals:
     - LIP-0009
     - LIP-0010
     - LIP-0011
+    - LIP-0012
+    - LIP-0013
 checksums: https://constitution.luminarylife.ai/spec/checksums.sha256
 checksums_sha256:
   CONSTITUTION.md: b0a24019d3817bb88db11e7b5eb8bafdc33001d58e6942e4c183df75bcba2f62
@@ -3586,7 +3843,7 @@ checksums_sha256:
   evaluation/evaluation-prompt.txt: 5d83b48dcac8ccd90e0a0bde903b10b4c99e399607119e011f0b743044c43d81
   evaluation/review-prompt-v1.txt: ec168989aa1557ad75a2ebca6ab86f9a19b2e40bb086b86fe6c8d92d204e1d9c
   evaluation/review-prompt-v2.txt: ea51e75d055df9220ba5e3f92d8cbacad8a833b08ee81d1214031e35d07d5276
-  governance/CHANGELOG.md: 87af098d660a9dedb9b182922c1051dc644f2e57a1b18902ca9b1852eea3b969
+  governance/CHANGELOG.md: 04e7eeea33bf8ccf25517b4b7011344bbbb2b4380026c064b1c8e503df58a4e4
   governance/FORK-REGISTRY.md: ddb251fb5d894d888634ef64e053b45daa1b87f07602b0673a7828aebc962f02
   governance/FORKS.md: 2622c5657a9dd708ef72cf932ae0b0e292286794b36ee8cc587ace13ac919d85
   governance/GITHUB_PROTECTION.md: 64e75865e4dc15012ef37d154692f6a987bf897c464cf2095000ce3d0984351f
@@ -3608,6 +3865,8 @@ checksums_sha256:
   governance/lips/LIP-0009-governance-independence-and-sunset.md: 5ea33adb45c479967b9b055ec64072af4b2a6dc1d6d7b402a9a73de84efe33a7
   governance/lips/LIP-0010-the-invariant-veto.md: ec11027a8b5633b3eb06c5ebedb9f0cfee27099288747f74bd99e2e0da8e9629
   governance/lips/LIP-0011-provenance-protocol.md: e17d5bd0100169f8e48a841db67a9a7aa16c3a80889a7acd87efbb7f288a33e3
+  governance/lips/LIP-0012-purpose-through-passion-in-service.md: 5e6b9e43a273d0387adfbfb60cde25c3259474de05f0067aac36e14e6ecbf9e1
+  governance/lips/LIP-0013-helping-people-regain-their-footing.md: c6ce8e71aac46da8d11d39057e92c5142b8c9e6366ba3e1114e6b6256be4d51a
 checksums_note: SHA-256 of every canonical file except spec/constitution.json and spec/constitution.yaml, which cannot contain their own hashes; those two are in the checksum file
 verification:
   proves: the fetched bytes agree with the checksum manifest served by the same origin at the version named here
